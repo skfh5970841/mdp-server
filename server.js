@@ -95,7 +95,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/login', function(req, res){
-    res.render('login.ejs');
+    res.render('1.ejs');
 });
 
 app.post('/login', function(req, res){
@@ -105,7 +105,6 @@ app.post('/login', function(req, res){
 
     connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
         function( error, results, fields) {
-            
             if (error) 
             {
                 console.log(error);
@@ -117,7 +116,7 @@ app.post('/login', function(req, res){
             // console.log('The solution is: ', results);
             if(results.length > 0) {
                 console.log(results[0].StuPw);
-                
+
                 if(results[0].StuPw == pw) {
                     res.send({
                         "code": 200,
@@ -132,7 +131,7 @@ app.post('/login', function(req, res){
             } else {
                 res.send({
                     "code":204,
-                    "success": "Email does not exists"
+                    "success": "Id does not exists"
                 });
             }
         }    

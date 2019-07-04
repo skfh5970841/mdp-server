@@ -2,25 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>Main Page</title>
   <link rel="stylesheet" type = "text/css" href="/css/style.css">
   <script>
-    function toggle(){
-      var x = document.getElementById("toggle1");
-      var y = document.getElementById("toggle2");
-      if(x.style.display === "none" && y.style.display === "block")
-      {
-        x.style.display = "block"
-        y.style.display = "none"
-      }else {
-        x.style.display = "none"
-        y.style.display = "block"
-      }
-    }
-    /*function try_login(){
-      alert("로그인을 시도합니다");
-
-    }*/
+    
   </script>
 </head>
 <body>
@@ -38,9 +23,9 @@
       <form action = "/login" method = post id = "toggle2" class="login-form">
         <input type="text" name="username" placeholder="id" /><br />
         <input type="password" name="password" placeholder="password" /><br />
-        <input type="submit" />
+        <input class="submit-form"  type="submit" />
       </form> 
-      
+
       <p class="message">Not registered? <a onclick="toggle()">Create an account</a></p>
     </div>
 
