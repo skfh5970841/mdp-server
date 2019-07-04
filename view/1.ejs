@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" type = "text/css" href="/css/style.css">
+  <script>
+    function toggle(){
+      var x = document.getElementById("toggle1");
+      var y = document.getElementById("toggle2");
+      if(x.style.display === "none" && y.style.display === "block")
+      {
+        x.style.display = "block"
+        y.style.display = "none"
+      }else {
+        x.style.display = "none"
+        y.style.display = "block"
+      }
+    }
+    /*function try_login(){
+      alert("로그인을 시도합니다");
+
+    }*/
+  </script>
+</head>
+<body>
+  <div class="login-page">
+
+    <div class="form">
+      <form id = "toggle1" class="register-form">
+        <input type="text" placeholder="name"/>
+        <input type="password" placeholder="password"/>
+        <input type="text" placeholder="email address"/>
+        <button>create</button>
+        <p class="message">Already registered? <a href="#" onclick="toggle()">Sign In</a></p>
+      </form>
+
+      <form action = "/login" id = "toggle2" class="login-form">
+        <input type="text" placeholder="username"/>
+        <input type="password" placeholder="password"/>
+        <!--<button onclick="try_login();">login</button> -->
+        <input type="submit" />  
+        <p class="message">Not registered? <a onclick="toggle()">Create an account</a></p>
+      </form>
+      <!--
+      <form action="/login" method="get">
+        <label>이름: </label>
+        <input name="name" type="text"><br>
+        <label>이메일: </label>
+        <input name="email" type="text"><br>
+        <label>비밀번호: </label>
+        <input name="password" type="password"><br>
+        <input type="submit" value="전송">
+      </form> -->
+      
+    </div>
+
+  </div>
+</body>
+</html>
