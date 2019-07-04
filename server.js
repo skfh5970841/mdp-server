@@ -91,7 +91,9 @@ app.post('/test', function(req, res){
 });
 */
 app.get('/', function(req, res){
-    res.send('<a href = "login">login<a>');
+    //res.send('<a href = "login">login<a>');
+    
+    res.render('main.ejs');
 });
 
 app.get('/login', function(req, res){
@@ -137,6 +139,47 @@ app.post('/login', function(req, res){
         }    
     })
 });
+//nfc 처리 코드(보내는건 curl/curl.h에 정의되어 있다.)
+
+//제작중!
+app.post('/process/nfc', function(req, res){
+    var tag = req.body.tag; 
+    connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
+        function( error, results, fields) {
+            if (error) 
+            {
+                console.log(error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                })
+            } else {
+            // console.log('The solution is: ', results);
+            if(results.length > 0) {
+                console.log(results[0].StuPw);
+
+                if(results[0].NFCNumber == tag) {
+                    res.send({
+                        "code": 200,
+                        "success": "tag is matching"
+                    });
+                } else {
+                    res.send({
+                        "code": 204,
+                        "success": "tag is not matching"
+                    });
+                }
+            } else {
+                res.send({
+                    "code":204,
+                    "success": "invalid tag"
+                });
+            }
+
+        }    
+    })
+});
+
 /*app.post('/a', function (req, res, next) {
     var userId = req.body['userId'];
     var userPw = req.body['userPw'];
