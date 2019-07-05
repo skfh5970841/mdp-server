@@ -8,11 +8,11 @@ var showdata = require('./router/show-all-data.js');
 var config = require('./config');
 var session = require('express-session');
 
-var crypto = require('crypto');
-
-
+//var crypto = require('crypto');
 
 var fs = require('fs');
+
+
 app.use(bodyParser.json());
 app.use(session({
     secret : 'zenbusine!!!!!',
@@ -92,18 +92,22 @@ app.post('/test', function(req, res){
 */
 app.get('/', function(req, res){
     //res.send('<a href = "login">login<a>');
-    
     res.render('main.ejs');
 });
 
 app.get('/login', function(req, res){
-    res.render('1.ejs');
+    console.log(session.user);
+    if(session.user)
+        res.render('1.ejs');
+    else
+        res.render('home.ejs');
 });
 
 app.post('/login', function(req, res){
 
     var id = req.body.username;
     var pw = req.body.password;
+    var session = req.session;
 
     connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
         function( error, results, fields) {
@@ -117,28 +121,35 @@ app.post('/login', function(req, res){
             } else {
             // console.log('The solution is: ', results);
             if(results.length > 0) {
-                console.log(results[0].StuPw);
+                //console.log(results[0].StuPw);
 
                 if(results[0].StuPw == pw) {
-                    res.send({
-                        "code": 200,
-                        "success": "login sucessfull"
-                    });
-                } else {
-                    res.send({
-                        "code": 204,
-                        "success": "id and password does not match"
-                    });
+                   session.user = {
+                    "Id" : results[0].StuId,
+                    "age" : 25,
                 }
+                console.log(session.user.Id);
+
+                res.send({
+                    "code": 200,
+                    "success": "login sucessfull"
+                });        
             } else {
                 res.send({
-                    "code":204,
-                    "success": "Id does not exists"
+                    "code": 204,
+                    "success": "id and password does not match"
                 });
             }
-        }    
-    })
+        } else {
+            res.send({
+                "code":204,
+                "success": "Id does not exists"
+            });
+        }
+    }    
+})
 });
+
 //nfc 처리 코드(보내는건 curl/curl.h에 정의되어 있다.)
 
 //제작중!
@@ -161,12 +172,12 @@ app.post('/process/nfc', function(req, res){
                 if(results[0].NFCNumber == tag) {
                     res.send({
                         "code": 200,
-                        "success": "tag is matching"
+                        "success": "tag was matched"
                     });
                 } else {
                     res.send({
                         "code": 204,
-                        "success": "tag is not matching"
+                        "success": "tag was not matched"
                     });
                 }
             } else {
