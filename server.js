@@ -8,7 +8,10 @@ var showdata = require('./router/show-all-data.js');
 var config = require('./config');
 var session = require('express-session');
 
-//var crypto = require('crypto');
+//시험용코드(mysql session)
+var MYSQLStore = require('express-mysql-session')(session);
+var sessionStore = new MYSQLStore(config);
+//break
 
 var fs = require('fs');
 
@@ -16,6 +19,9 @@ var fs = require('fs');
 app.use(bodyParser.json());
 app.use(session({
     secret : 'zenbusine!!!!!',
+    //시험용 코드 mysql session
+    store : sessionStore,
+    //break
     resave : false,
     saveUninitialized : true
 }));
@@ -34,6 +40,7 @@ app.get('/', function(req, res){
 });*/
 app.get('/',function(req,res){
     if(req.session.user){
+        
         res.render('home.ejs', {
             Id : req.session.user.Id
         });
