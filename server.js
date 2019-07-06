@@ -156,6 +156,11 @@ app.get('/pro', function(req, res){
 app.get('/admin', function(req, res){
     res.render('admin.ejs');
 });
+
+app.get('/logout', function(req, res){
+    delete req.session;
+    res.redirect('/login')
+});
 /*app.post('/a', function (req, res, next) {
     var userId = req.body['userId'];
     var userPw = req.body['userPw'];
@@ -179,7 +184,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname+'/view');
 
 
-var server = app.listen(8888, function(){
+var server = app.listen(process.env.PORT||8888, function(){
     console.log("Express server has started on port 8888");
 });
 
