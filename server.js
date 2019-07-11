@@ -26,9 +26,9 @@ app.use(session({
     saveUninitialized : true
 }));
 
-    var connection = mysql.createConnection(config);
+var connection = mysql.createConnection(config);
 
-    connection.connect();
+connection.connect();
 // 일정한 시간마다 의미없는 쿼리문을 보내서 연결을 유지시킨다.
 setInterval(function () {
     connection.query('SELECT 1');
@@ -40,22 +40,15 @@ app.get('/', function(req, res){
 });*/
 app.get('/',function(req,res){
     if(req.session.user){
-        
         res.render('home.ejs', {
             Id : req.session.user.Id
         });
     }else {
-        res.redirect('/login')
+        res.redirect('/login');
     }
 });
 app.get('/login', function(req, res){
-    //if(req.session.user)
-    //    res.render('home.ejs', {
-    //        title: "MY HOMEPAGE",
-    //        Id : req.session.user.Id
-    //    });
-    //else
-        res.render('login.ejs');
+    res.render('login.ejs');
 });
 
 app.post('/login', function(req, res){
@@ -79,7 +72,7 @@ app.post('/login', function(req, res){
                 //console.log(results[0].StuPw);
 
                 if(results[0].StuPw == pw) {
-                   session.user = {
+                 session.user = {
                     "Id" : results[0].StuId,
                     "age" : 25,
                 }
@@ -87,8 +80,8 @@ app.post('/login', function(req, res){
                 //console.log(session.user.Id);
 
                 
-                    res.redirect('/');
-                        
+                res.redirect('/');
+
             } else {
                 res.send({
                     "code": 204,
@@ -146,47 +139,26 @@ app.post('/process/nfc', function(req, res){
     })
 });
 
-//test
-app.get('/test', function(req, res){
-    res.render('ex.ejs');
-});
-app.get('/pro', function(req, res){
-    res.render('my.ejs');
-});
-app.get('/admin', function(req, res){
-    res.render('admin.ejs');
-});
-
 app.get('/logout', function(req, res){
     delete req.session;
     res.redirect('/login')
 });
-/*app.post('/a', function (req, res, next) {
-    var userId = req.body['userId'];
-    var userPw = req.body['userPw'];
-    connection.query('select * from test_user where id=\'' + userId + '\' and pw=\'' + userPw + '\'', function (err, rows, fields) {
-        if (!err) {
-            if (rows[0]!=undefined) {
-                res.send('id : ' + rows[0]['id'] + '<br>' +
-                    'pw : ' + rows[0]['pw']);
-            } else {
-                res.send('no data');
-            }
 
-        } else {
-            res.send('error : ' + err);
-        }
-    });
-});*/
+app.get('/t', function(req, res){
+    res.render('t.ejs',{Id : 'sa'});
+});
+
+app.get('/mlogin', function(req, res){
+    res.render('mlogin.ejs');
+});
+
 
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname+'/view');
 
-
 var server = app.listen(process.env.PORT||8888, function(){
     console.log("Express server has started on port 8888");
 });
-
 
 var router = require('./router/main')(app);
