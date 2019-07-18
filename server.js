@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
-var mysql = require('mysql');
+//var mysql = require('mysql');
 app.use(express.static(__dirname + '/public'));
 var showdata = require('./router/show-all-data.js');
-var config = require('./config');
+//var config = require('./config');
 var session = require('express-session');
 
 //시험용코드(mysql session)
@@ -25,7 +25,7 @@ app.use(session({
     resave : false,
     saveUninitialized : true
 }));
-
+/*
 var connection = mysql.createConnection(config);
 
 connection.connect();
@@ -33,11 +33,13 @@ connection.connect();
 setInterval(function () {
     connection.query('SELECT 1');
 }, 5000);
+*/
 /*
 app.get('/', function(req, res){
     //res.send('<a href = "login">login<a>');
     res.render('main.ejs');
 });*/
+/*
 app.get('/',function(req,res){
     if(req.session.user){
         res.render('home.ejs', {
@@ -151,7 +153,7 @@ app.get('/t', function(req, res){
 app.get('/mlogin', function(req, res){
     res.render('mlogin.ejs');
 });
-
+*/
 
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
