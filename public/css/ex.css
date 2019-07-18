@@ -3,9 +3,10 @@
 	height: 45px;	
 	border: 1px solid #000;
 	margin:0px;
-	background-color: 
+	background-color: #000000;
 }
 .heading{
+	width: 100%;
 	background-color: #76b852;
 	margin:0px;
 }
@@ -13,7 +14,10 @@ h1{
 	margin : 0px;
 	border : 0px;
 }
-
+body {
+    margin: 0;
+    padding: 0;
+}
 .login-page {
 	width: 360px;
 	padding: 8% 0 0;
