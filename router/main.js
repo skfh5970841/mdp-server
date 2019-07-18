@@ -7,30 +7,29 @@ module.exports = function(app, fs)
 
     connection.connect();
 // 일정한 시간마다 의미없는 쿼리문을 보내서 연결을 유지시킨다.
-    setInterval(function () {
+    setInterval(()=> {
         connection.query('SELECT 1');
     }, 5000);
-    app.get('/',function(req,res){
+    app.get('/', (req, res)=>{
         if(req.session.user){
-            res.render('home.ejs', {
+            res.render('user.ejs', {
                 Id : req.session.user.Id
             });
         }else {
             res.redirect('/login');
         }
     });
-    app.get('/login', function(req, res){
+    app.get('/login', (req, res)=>{
         res.render('login.ejs');
     });
 
-    app.post('/login', function(req, res){
-
+    app.post('/login', (req, res)=>{
         var id = req.body.username;
         var pw = req.body.password;
         var session = req.session;
 
         connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
-            function( error, results, fields) {
+            (error, results, fields) =>{
                 if (error) 
                 {
                     console.log(error);
@@ -39,7 +38,6 @@ module.exports = function(app, fs)
                         "failed": "error ocurred"
                     })
                 } else {
-                // console.log('The solution is: ', results);
                 if(results.length > 0) {
                     //console.log(results[0].StuPw);
 
@@ -47,11 +45,7 @@ module.exports = function(app, fs)
                      session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
-                    }
-                    //if(session.user.Id)
-                    //console.log(session.user.Id);
-
-                    
+                    }                 
                     res.redirect('/');
 
                 } else {
@@ -70,13 +64,11 @@ module.exports = function(app, fs)
     })
     });
 
-    //nfc 처리 코드(보내는건 curl/curl.h에 정의되어 있다.)
-
-    //제작중!
-    app.post('/process/nfc', function(req, res){
+    //제작중
+    app.post('/process/nfc', (req, res)=>{
         var tag = req.body.tag; 
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
-            function( error, results, fields) {
+            (error, results, fields) =>{
                 if (error) 
                 {
                     console.log(error);
@@ -111,18 +103,19 @@ module.exports = function(app, fs)
         })
     });
 
-    app.get('/logout', function(req, res){
+
+    app.get('/logout', (req, res)=>{
         delete req.session;
         res.redirect('/login')
     });
 
-    app.get('/t', function(req, res){
+    app.get('/t', (req, res)=>{
         res.render('t.ejs',{Id : 'sa'});
     });
 
-    app.get('/mlogin', function(req, res){
-        res.render('mlogin.ejs');
-    });
 
-
+    app.get('/admin', (req, res)=>{
+        res.render('admin.ejs')
+    })
+    
 }

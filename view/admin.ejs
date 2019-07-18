@@ -2,12 +2,48 @@
 <html>
 <head>
 	<title>관리자 모드</title>
-	<style type="text/css">
-		
-	</style>
+	<link rel="stylesheet" type = "text/css" href="/css/ex.css">
+	<script>
+		var x =document.getElementById("toggle1");
+		function toggle(){
+			var x = document.getElementById("toggle1");
+			if(x.style.display === "block")
+			{
+				x.style.display = "none"
+			}else {
+				x.style.display = "block"
+			}
+		}
+	</script>
+
 </head>
 <body>
-	<h2>관리자 모드</h2>
+	<!--top-->
+	<div class = "top">
+			<a href="/logout">Logout</a>
+	</div>
+	<!-- Heading -->
+	<div class = "heading">
+		<h1>Elements</h1>
+	</div>
 
+	<div>
+		<h3>관리자 모드</h3>
+		<div>
+			<input type="button" value = "계정 추가하기" onclick="toggle()">	
+			<input type="button" value = "계정 삭제하기" onclick="">
+			<input type="button" value = "카드 관리">
+		</div>
+
+	</div>
+	<div id = "toggle1" class = "form">
+		<form class="register-form">
+			<input type="text" placeholder="name"/>
+			<input type="password" placeholder="password"/>
+			<input type="text" placeholder="email address"/>
+			<button>create</button>
+			<p class="message">Already registered? <a href="#" onclick="toggle()">Sign In</a></p>
+		</form>
+	</div>
 </body>
 </html>

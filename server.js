@@ -4,8 +4,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 //var mysql = require('mysql');
 app.use(express.static(__dirname + '/public'));
-var showdata = require('./router/show-all-data.js');
-//var config = require('./config');
+var config = require('./config');
 var session = require('express-session');
 
 //시험용코드(mysql session)
