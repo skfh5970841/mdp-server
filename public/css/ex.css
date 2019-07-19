@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Nanum+Brush+Script|Nanum+Pen+Script|Noto+Sans+KR|Stylish&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap&subset=korean');
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .top {
 	width: 100%;
@@ -39,22 +41,23 @@ body {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -125%);
+	transform: translate(-50%, -95%);
 }
 .mid p{
-	font-size: 30px;
-	
+	width: 600px;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 40px;
 }
 
 
-.login-page {
-	width: 360px;
-	padding: 8% 0 0;
-	margin: auto;
-}
+
 .form {
 	position: relative;
-	z-index: 1;
+	/*
+	 *우선순위
+	 z-index: 1;
+	*/
+
 	background: #FFFFFF;
 	max-width: 360px;
 	margin: 0 auto 100px;
