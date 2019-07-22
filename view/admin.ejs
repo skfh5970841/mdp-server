@@ -4,15 +4,28 @@
 	<title>관리자 모드</title>
 	<link rel="stylesheet" type = "text/css" href="/css/ex.css">
 	<script>
-		var x =document.getElementById("toggle1");
-		function toggle(){
-			var x = document.getElementById("toggle1");
+		var x;
+
+		function toggle(id){
+			//x = document.getElementById("toggle1"); 
+
+			if( id === 'b1'){
+				x = document.getElementById("toggle1");
+			}
+			if( id === 'b2'){
+				x = document.getElementById("toggle2");
+			}
+			if( id === 'b3'){
+				x = document.getElementById("toggle3");
+			}
+
 			if(x.style.display === "block")
 			{
 				x.style.display = "none"
 			}else {
 				x.style.display = "block"
 			}
+
 		}
 	</script>
 
@@ -20,7 +33,7 @@
 <body>
 	<!--top-->
 	<div class = "top">
-		<h3 class="logout"><a href="/logout"  style="color: white">Logout</a></h3>
+		<h3 class="logout"><a href="/logout" style="color: white">Logout</a></h3>
 	</div>
 
 	<div class = "imgtext">
@@ -33,11 +46,13 @@
 	</div>	
 
 	<div>
-		<h3>관리자 모드</h3>
+		<h3 class="head">관리자 모드</h3>
 		<div>
-			<input type="button" value = "계정 추가하기" onclick="toggle()">	
-			<input type="button" value = "계정 삭제하기" onclick="">
-			<input type="button" value = "카드 관리">
+			<center>
+				<input class = "button" type="button" value = "계정 추가하기" id = "b1" onclick="toggle(this.id)">	
+				<input class = "button" type="button" value = "계정 삭제하기" id = "b2" onclick="toggle(this.id)">
+				<input class = "button" type="button" value = "카드 관리" id = "b3" onclick="toggle(this.id)">
+			</center>
 		</div>
 	</div>
 
@@ -54,5 +69,25 @@
 			<!--<p class="message">Already registered? <a href="#" onclick="toggle()">Sign In</a></p>-->
 		</form>
 	</div>
+
+	<div id = "toggle2" class = "form">
+		<form action = "/deleteuser" method = post>
+			<input type="text" name="username" placeholder="name"/>
+			<button>delete</button>
+		</form>
+	</div>
+	
+	<!--
+	<div id = "toggle3" class = "form">
+		<form action = "/adduser" method = post>
+			<input type="text" name="username" placeholder="name"/>
+			<input type="text" name="Id" placeholder="id">
+			<input type="password" name="password" placeholder="password"/>
+			<input type="password" name = "confirm_password" placeholder="confirm password"/>
+			<input type="text" name = "email" placeholder="email address"/>
+			<button>create</button>
+		</form>
+	</div>	-->
+
 </body>
 </html>

@@ -42,7 +42,7 @@ app.post('/login', (req, res)=>{
                     //console.log(results[0].StuPw);
 
                     if(results[0].StuPw == pw) {
-                     session.user = {
+                       session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
                     }                 
@@ -79,8 +79,6 @@ app.post('/login', (req, res)=>{
                 } else {
                 // console.log('The solution is: ', results);
                 if(results.length > 0) {
-                    console.log(results[0].StuPw);
-
                     if(results[0].NFCNumber == tag) {
                         res.send({
                             "code": 200,
@@ -103,6 +101,10 @@ app.post('/login', (req, res)=>{
         })
     });
 
+    app.post('/deleteuser', (req, res)=>{
+        var name = req.body.username;
+        connection.query('DELETE * FROM student WHERE Stuid = ?', [name]);
+    });
 
     app.get('/logout', (req, res)=>{
         delete req.session;
@@ -116,9 +118,9 @@ app.post('/login', (req, res)=>{
 
     app.get('/admin', (req, res)=>{
         res.render('admin.ejs')
-    })
+    });
 
-    app.post('/adduser'(req, res)=>{
+    app.post('/adduser', (req, res)=>{
         var name = req.body.username;
         var id = req.body.Id;
         var pw = req.body.password;
@@ -142,7 +144,7 @@ app.post('/login', (req, res)=>{
                     //console.log(results[0].StuPw);
 
                     if(results[0].StuPw == pw) {
-                     session.user = {
+                       session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
                     }                 

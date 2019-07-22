@@ -14,6 +14,10 @@ h1, h2, h3{
 	margin : 0px;
 	border : 0px;
 }
+.head{
+	border-bottom: 3px solid #CCCCCC;
+	background-color: #CCCCCC;
+}
 .logout{
 	margin-top: 6px;
 }
@@ -22,7 +26,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
 
 .imgtext{
 	width : 100%;
@@ -49,7 +52,21 @@ body {
 	font-size: 40px;
 }
 
-
+.button {
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #FF00FF;
+	width: 30%;
+	border: 0;
+	padding: 0px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
 
 .form {
 	position: relative;
