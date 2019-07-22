@@ -103,9 +103,9 @@ app.post('/login', (req, res)=>{
 
     app.post('/deleteuser', (req, res)=>{
         var name = req.body.username;
-        connection.query('DELETE * FROM student WHERE Stuid = ?', [name]);
+        connection.query('DELETE FROM student WHERE Stuid = ?', [name]);
     });
-
+    
     app.get('/logout', (req, res)=>{
         delete req.session;
         res.redirect('/login')
