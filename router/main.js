@@ -66,7 +66,7 @@ app.post('/login', (req, res)=>{
 
     //제작중
     app.post('/process/nfc', (req, res)=>{
-        var tag = req.body.tag; 
+        var tag = req.body.NFCnumber; 
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
             (error, results, fields) =>{
                 if (error) 
@@ -167,9 +167,64 @@ app.post('/login', (req, res)=>{
     });
         }
         else{
-            alert('입력하지 않는 부분이 있습니다. 모두 입력하여 주세요');
+            alert('입력하지 않은 부분이 있습니다. 모두 입력하여 주세요');
             res.redirect('/admin');
         }
     });
+
+    //정보전달
+    app.post('/admin', (req, res)=>{
+        //var sql = 'SELECT * FROM student';
+        var session = req.session;
+        connection.query('SELECT * FROM student',
+            (error, results, fields) =>{
+                if(error){
+                    alert('error occured, please try again');
+                    res.redirect('/admin');
+                }
+                else {
+                    console.log(results);
+                    session information = results;
+                }
+            });
+        res.redirect('/admin');
+    });
+    //반 선택
+    app.post('/admin', (req,res)=>{
+        var classname = req.body.classname;
+        var select;
+        switch (classname) {
+            case "ec1": select = 1;
+            break;
+            case "ec2": select = 2;
+            break;
+            case "ec3": select = 3;
+            break;
+            case "ecd1": select = 4;
+            break;
+            case "ecd2": select = 5;
+            break;
+            case "ecd3": select = 6;
+            break;
+            case "ice1": select = 7;
+            break;
+            case "ice2": select = 8;
+            break;    
+            default: res.send('wrong input data');
+            res.redirect('/admin');
+            break;    
+        }
+
+
+    });
+    app.get('/admin', (req, res)=>{
+        if(req.session.information){
+            res.render('/admin', req.session.information);    
+        }
+        else{
+            res.render('/admin');
+        }
+    });
+
     
 }

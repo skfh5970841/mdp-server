@@ -65,11 +65,9 @@
 			<input type="password" name = "confirm_password" placeholder="confirm password"/>
 			<input type="text" name = "email" placeholder="email address"/>
 			<button>create</button>
-			
 			<!--<p class="message">Already registered? <a href="#" onclick="toggle()">Sign In</a></p>-->
 		</form>
 	</div>
-
 	<div id = "toggle2" class = "form">
 		<form action = "/deleteuser" method = post>
 			<input type="text" name="username" placeholder="name"/>
@@ -77,8 +75,18 @@
 		</form>
 	</div>
 	
-	<!--
-	<div id = "toggle3" class = "form">
+	<!--구현중!-->
+	<div id = "toggle3" class = "form">		
+		<h3>select your class!</h3>
+		<h4>
+			<h5>3학년</h5> 
+			<h6>input your class name within this form(제어 1반 : ec1, 회로 1반 : ecd1 통신 1반 : ice1)</h6>
+			<form action="/admin">
+				<input type="text" name="classname" placeholder="name"/>
+				<button>confirm</button>
+			</form>
+		</h4>
+
 		<form action = "/adduser" method = post>
 			<input type="text" name="username" placeholder="name"/>
 			<input type="text" name="Id" placeholder="id">
@@ -87,7 +95,7 @@
 			<input type="text" name = "email" placeholder="email address"/>
 			<button>create</button>
 		</form>
-	</div>	-->
+	</div>
 
 </body>
 </html>

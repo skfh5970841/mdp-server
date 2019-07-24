@@ -24,6 +24,7 @@ app.use(session({
     resave : false,
     saveUninitialized : true
 }));
+
 /*
 var connection = mysql.createConnection(config);
 
