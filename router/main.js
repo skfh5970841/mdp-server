@@ -85,11 +85,14 @@ app.post('/login', (req, res)=>{
                             "code": 200,
                             "success": "tag was matched"
                         });*/
+                        return '정상처리 되었습니다.'
                     } else {
                         console.log('없는 데이터입니다..');
+                        return '없는 데이터입니다.'
                     }
                 } else {
                     console.log('유효하지 않은 데이터입니다.');
+                    return '유효하지 않은 데이터입니다.'
                 }
 
             }    
