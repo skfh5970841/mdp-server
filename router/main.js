@@ -184,7 +184,7 @@ app.post('/login', (req, res)=>{
                 }
                 else {
                     console.log(results);
-                    session information = results;
+                    //session information = {results};
                 }
             });
         res.redirect('/admin');
@@ -219,7 +219,7 @@ app.post('/login', (req, res)=>{
     });
     app.get('/admin', (req, res)=>{
         if(req.session.information){
-            res.render('/admin', req.session.information);    
+            //res.render('/admin', req.session.information);    
         }
         else{
             res.render('/admin');
