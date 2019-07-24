@@ -80,21 +80,16 @@ app.post('/login', (req, res)=>{
                 // console.log('The solution is: ', results);
                 if(results.length > 0) {
                     if(results[0].NFCNumber == tag) {
-                        res.send({
+                        console.log('정상처리 되었습니다.');
+                        /*res.send({
                             "code": 200,
                             "success": "tag was matched"
-                        });
+                        });*/
                     } else {
-                        res.send({
-                            "code": 204,
-                            "success": "tag was not matched"
-                        });
+                        console.log('없는 데이터입니다..');
                     }
                 } else {
-                    res.send({
-                        "code":204,
-                        "success": "invalid tag"
-                    });
+                    console.log('유효하지 않은 데이터입니다.');
                 }
 
             }    
