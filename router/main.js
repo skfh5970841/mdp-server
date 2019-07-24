@@ -67,6 +67,8 @@ app.post('/login', (req, res)=>{
     //제작중
     app.post('/process/nfc', (req, res)=>{
         var tag = req.body.NFCnumber; 
+        var session = req.session;
+
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
             (error, results, fields) =>{
                 if (error) 
@@ -77,6 +79,10 @@ app.post('/login', (req, res)=>{
                         "failed": "error ocurred"
                     })
                 } else {
+                res.send(tag);
+                session.nfc = {
+                        "nfc" : tag
+                    } 
                 // console.log('The solution is: ', results);
                 if(results.length > 0) {
                     if(results[0].NFCNumber == tag) {
@@ -85,18 +91,21 @@ app.post('/login', (req, res)=>{
                             "code": 200,
                             "success": "tag was matched"
                         });*/
-                        return '정상처리 되었습니다.'
+                        //return '정상처리 되었습니다.'
                     } else {
                         console.log('없는 데이터입니다..');
-                        return '없는 데이터입니다.'
+                        //return '없는 데이터입니다.'
                     }
                 } else {
                     console.log('유효하지 않은 데이터입니다.');
-                    return '유효하지 않은 데이터입니다.'
+                    //return '유효하지 않은 데이터입니다.'
                 }
 
             }    
         })
+    });
+    app.get('/process/nfc', (req, res)=>{
+        res.send(req.session.tag);
     });
 
     app.post('/deleteuser', (req, res)=>{
