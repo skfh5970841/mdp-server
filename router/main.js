@@ -124,7 +124,7 @@ app.post('/login', (req, res)=>{
 
 
     app.get('/admin', (req, res)=>{
-        res.render('admin.ejs')
+        res.render('admin.ejs');
     });
 
     app.post('/adduser', (req, res)=>{
