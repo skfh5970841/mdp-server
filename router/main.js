@@ -124,7 +124,12 @@ app.post('/login', (req, res)=>{
 
 
     app.get('/admin', (req, res)=>{
-        res.render('admin.ejs');
+        if(session.select){
+            res.send(req.session.select);
+
+            //res.render('admin.ejs', {select : req.session.select})
+        }
+        else res.render('admin.ejs');
     });
 
     app.post('/adduser', (req, res)=>{
