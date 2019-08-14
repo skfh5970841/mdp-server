@@ -42,7 +42,7 @@ app.post('/login', (req, res)=>{
                     //console.log(results[0].StuPw);
 
                     if(results[0].StuPw == pw) {
-                     session.user = {
+                       session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
                     }                 
@@ -124,9 +124,10 @@ app.post('/login', (req, res)=>{
 
 
     app.get('/admin', (req, res)=>{
-        if(session.select){
-            res.send(req.session.select);
-
+        console.log('this is /admin');
+        if(req.session.select){
+            console.log(res.session.select); 
+            res.send(req.session.select.select);
             //res.render('admin.ejs', {select : req.session.select})
         }
         else res.render('admin.ejs');
@@ -156,7 +157,7 @@ app.post('/login', (req, res)=>{
                     //console.log(results[0].StuPw);
 
                     if(results[0].StuPw == pw) {
-                     session.user = {
+                       session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
                     }                 
@@ -185,7 +186,7 @@ app.post('/login', (req, res)=>{
     });
 
     //정보전달
-    app.post('/admin', (req, res)=>{
+    /*app.post('/admin', (req, res)=>{
         //var sql = 'SELECT * FROM student';
         var session = req.session;
         connection.query('SELECT * FROM student',
@@ -200,11 +201,12 @@ app.post('/login', (req, res)=>{
                 }
             });
         res.redirect('/admin');
-    });
+    });*/
     //반 선택
-    app.post('/admin', (req,res)=>{
+    app.post('/admin', (req, res)=>{
         var classname = req.body.classname;
         var select;
+        console.log(classname);
         switch (classname) {
             case "ec1": select = 1;
             break;
@@ -223,13 +225,13 @@ app.post('/login', (req, res)=>{
             case "ice2": select = 8;
             break;    
             default: res.send('wrong input data');
-            res.redirect('/admin');
+            //res.redirect('/admin');
             break;    
         }
         session.select = {
-            "select" : select
-        };
-
+            "select" : select,
+        }
+        res.redirect('/admin');
     });
     app.get('/admin', (req, res)=>{
         if(req.session.information){
