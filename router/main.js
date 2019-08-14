@@ -42,7 +42,7 @@ app.post('/login', (req, res)=>{
                     //console.log(results[0].StuPw);
 
                     if(results[0].StuPw == pw) {
-                       session.user = {
+                     session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
                     }                 
@@ -79,8 +79,8 @@ app.post('/login', (req, res)=>{
                         "failed": "error ocurred"
                     })
                 } else {
-                res.send(tag);
-                session.nfc = {
+                    res.send(tag);
+                    session.nfc = {
                         "nfc" : tag
                     } 
                 // console.log('The solution is: ', results);
@@ -151,7 +151,7 @@ app.post('/login', (req, res)=>{
                     //console.log(results[0].StuPw);
 
                     if(results[0].StuPw == pw) {
-                       session.user = {
+                     session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
                     }                 
@@ -221,7 +221,9 @@ app.post('/login', (req, res)=>{
             res.redirect('/admin');
             break;    
         }
-
+        session.select = {
+            "select" : select
+        };
 
     });
     app.get('/admin', (req, res)=>{
