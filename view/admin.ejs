@@ -18,6 +18,9 @@
 			if( id === 'b3'){
 				x = document.getElementById("toggle3");
 			}
+			if( id === 'b4'){
+				x = document.getElementById("toggle4");
+			}
 
 			if(x.style.display === "block")
 			{
@@ -86,15 +89,17 @@
 				<button>confirm</button>
 			</form>
 		</h4>
+	</div>
 
-		<!-- <form action = "/adduser" method = post>
+	<div id = "toggle4" class = "form">
+		<form action = "/adduser" method = post>
 			<input type="text" name="username" placeholder="name"/>
 			<input type="text" name="Id" placeholder="id">
 			<input type="password" name="password" placeholder="password"/>
 			<input type="password" name = "confirm_password" placeholder="confirm password"/>
 			<input type="text" name = "email" placeholder="email address"/>
 			<button>create</button>
-		</form>  -->
+		</form>
 	</div>
 
 </body>

@@ -10,6 +10,7 @@ module.exports = function(app, fs)
 setInterval(()=> {
     connection.query('SELECT 1');
 }, 5000);
+
 app.get('/', (req, res)=>{
     if(req.session.user){
         res.render('user.ejs', {
@@ -27,7 +28,6 @@ app.post('/login', (req, res)=>{
     var id = req.body.username;
     var pw = req.body.password;
     var session = req.session;
-
     connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
         (error, results, fields) =>{
             if (error) 
@@ -122,17 +122,6 @@ app.post('/login', (req, res)=>{
         res.render('t.ejs',{Id : 'sa'});
     });
 
-
-    app.get('/admin', (req, res)=>{
-        console.log('this is /admin');
-        if(req.session.select){
-            console.log(res.session.select); 
-            res.send(req.session.select.select);
-            //res.render('admin.ejs', {select : req.session.select})
-        }
-        else res.render('admin.ejs');
-    });
-
     app.post('/adduser', (req, res)=>{
         var name = req.body.username;
         var id = req.body.Id;
@@ -206,6 +195,7 @@ app.post('/login', (req, res)=>{
     app.post('/admin', (req, res)=>{
         var classname = req.body.classname;
         var select;
+        console.log('kickckckckckckckckckckckck');
         console.log(classname);
         switch (classname) {
             case "ec1": select = 1;
@@ -228,19 +218,29 @@ app.post('/login', (req, res)=>{
             //res.redirect('/admin');
             break;    
         }
+        console.log(select);
+
         session.select = {
             "select" : select,
         }
+        /*
+        session.user = {
+                        "Id" : results[0].StuId,
+                        "age" : 25,
+                    }   
+         */
         res.redirect('/admin');
     });
-    app.get('/admin', (req, res)=>{
-        if(req.session.information){
-            //res.render('/admin', req.session.information);    
-        }
-        else{
-            res.render('/admin');
-        }
-    });
 
+    app.get('/admin', (req, res)=>{
+        console.log('this is /admin');
+        if(req.session.select){
+            console.log(res.session.select); 
+            res.render('admin.ejs', {select : req.session.select.select;});
+            //res.render('admin.ejs', {select : req.session.select})
+        }
+        else res.render('admin.ejs');
+    });
     
 }
+
