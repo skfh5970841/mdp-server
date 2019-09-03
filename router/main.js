@@ -236,7 +236,7 @@ app.post('/login', (req, res)=>{
         console.log('this is /admin');
         if(req.session.select){
             console.log(res.session.select); 
-            res.render('admin.ejs', {select : req.session.select.select;});
+            res.render('admin.ejs', {select : req.session.select.select});
             //res.render('admin.ejs', {select : req.session.select})
         }
         else res.render('admin.ejs');
