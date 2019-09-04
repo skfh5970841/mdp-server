@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello! <%= select %></title>
+	<link rel="stylesheet" type = "text/css" href="/css/ex.css">
+	<script>
+		var x;
+
+		function toggle(id){
+			//x = document.getElementById("toggle1"); 
+
+			if( id === 'b1'){
+				x = document.getElementById("toggle1");
+			}
+			if( id === 'b2'){
+				x = document.getElementById("toggle2");
+			}
+			if( id === 'b3'){
+				x = document.getElementById("toggle3");
+			}
+			if( id === 'b4'){
+				x = document.getElementById("toggle4");
+			}
+
+			if(x.style.display === "block")
+			{
+				x.style.display = "none"
+			}else {
+				x.style.display = "block"
+			}
+
+		}
+	</script>
+
+</head>
+<body>
+	<!--top-->
+	<div class = "top">
+		<h3 class="logout"><a href="/logout" style="color: white">Logout</a></h3>
+	</div>
+
+	<div class = "imgtext">
+		<div class = "mainimg">
+			<img src="/snow.jpg" alt="">
+		</div>
+		<div class = mid>
+			<p class = "title">인천 전자 마이스터 고등학교 학생관리 시스템</p>
+		</div>
+	</div>	
+	
+	<div>
+		<h3 class="head">관리자 모드</h3>
+		<div>
+			<center>
+				<input class = "button" type="button" value = "계정 추가하기" id = "b1" onclick="toggle(this.id)">	
+				<input class = "button" type="button" value = "계정 삭제하기" id = "b2" onclick="toggle(this.id)">
+				<input class = "button" type="button" value = "카드 정보/관리" id = "b3" onclick="toggle(this.id)">
+			</center>
+		</div>
+	</div>
+
+
+	<div id = "toggle1" class = "form">
+		<form action = "/adduser" method = post>
+			<input type="text" name="username" placeholder="name"/>
+			<input type="text" name="Id" placeholder="id">
+			<input type="password" name="password" placeholder="password"/>
+			<input type="password" name = "confirm_password" placeholder="confirm password"/>
+			<input type="text" name = "email" placeholder="email address"/>
+			<button>create</button>
+			<!--<p class="message">Already registered? <a href="#" onclick="toggle()">Sign In</a></p>-->
+		</form>
+	</div>
+	<div id = "toggle2" class = "form">
+		<form action = "/deleteuser" method = post>
+			<input type="text" name="username" placeholder="name"/>
+			<button>delete</button>
+		</form>
+	</div>
+	
+	<!--구현중!-->
+	<div id = "toggle3" class = "form">		
+		<h3>select your class!</h3>
+		<h4>
+			<h5>3학년</h5> 
+			<h6>input your class name within this form(제어 1반 : ec1, 회로 1반 : ecd1 통신 1반 : ice1)</h6>
+			<form action="/admin">
+				<input type="text" name="classname" placeholder="classname"/>
+				<button>confirm</button>
+			</form>
+		</h4>
+	</div>
+
+	<div id = "toggle4" class = "form">
+		<form action = "/adduser" method = post>
+			<input type="text" name="username" placeholder="name"/>
+			<input type="text" name="Id" placeholder="id">
+			<input type="password" name="password" placeholder="password"/>
+			<input type="password" name = "confirm_password" placeholder="confirm password"/>
+			<input type="text" name = "email" placeholder="email address"/>
+			<button>create</button>
+		</form>
+	</div>
+
+</body>
+</html>

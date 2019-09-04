@@ -20,6 +20,7 @@ app.get('/', (req, res)=>{
         res.redirect('/login');
     }
 });
+
 app.get('/login', (req, res)=>{
     res.render('login.ejs');
 });
@@ -28,6 +29,8 @@ app.post('/login', (req, res)=>{
     var id = req.body.username;
     var pw = req.body.password;
     var session = req.session;
+    console.log('this is login post select');
+
     connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
         (error, results, fields) =>{
             if (error) 
@@ -129,7 +132,7 @@ app.post('/login', (req, res)=>{
         var cpw = req.body.confirm_password;
         var email = reeq.body.email;
 
-        if(name||id||pw||cpw||email){
+        if(name&&id&&pw&&cpw&&email){
             alert('모든 정보가 입력되었습니다.');
 
             connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
@@ -191,10 +194,22 @@ app.post('/login', (req, res)=>{
             });
         res.redirect('/admin');
     });*/
+    app.get('/admin', (req, res)=>{
+        console.log('this is /admin get');
+        if(req.session.select){
+            console.log(res.session.select); 
+            res.redirect('admin2');
+        }
+        else res.render('admin.ejs');
+    });
+
     //반 선택
+    /*
     app.post('/admin', (req, res)=>{
         var classname = req.body.classname;
         var select;
+        var session = req.session;
+        console.log('this is /admin post');
         console.log('kickckckckckckckckckckckck');
         console.log(classname);
         switch (classname) {
@@ -219,28 +234,57 @@ app.post('/login', (req, res)=>{
             break;    
         }
         console.log(select);
-
-        session.select = {
-            "select" : select,
+        if(select != null)
+        {
+            session.select = {
+                "select" : select,
+            }
         }
-        /*
-        session.user = {
+    });*/
+
+    // processing!!!!!
+    app.post('/admin', (req, res)=>{
+    var classname = req.body.classname;
+    var session = req.session;
+    console.log('this is admin post select');
+    console.log(classname);
+    /*
+    connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
+        (error, results, fields) =>{
+            if (error) 
+            {
+                console.log(error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                })
+            } else {
+                if(results.length > 0) {
+                    //console.log(results[0].StuPw);
+
+                    if(results[0].StuPw == pw) {
+                       session.user = {
                         "Id" : results[0].StuId,
                         "age" : 25,
-                    }   
-         */
-        res.redirect('/admin');
-    });
+                    }                 
+                    res.redirect('/');
 
-    app.get('/admin', (req, res)=>{
-        console.log('this is /admin');
-        if(req.session.select){
-            console.log(res.session.select); 
-            res.render('admin.ejs', {select : req.session.select.select});
-            //res.render('admin.ejs', {select : req.session.select})
-        }
-        else res.render('admin.ejs');
-    });
+                } else {
+                    res.send({
+                        "code": 204,
+                        "success": "id and password does not match"
+                    });
+                }
+            } else {
+                res.send({
+                    "code":204,
+                    "success": "Id does not exists"
+                });
+            }
+        }    
+    })*/
+});
+    //
     
 }
 
