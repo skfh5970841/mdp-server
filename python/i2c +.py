@@ -1,7 +1,6 @@
 import httplib, urllib
 
 
-
 headers = {"Content-type":"application/x-www-form-urlencoded"}
 params = urllib.urlencode({'id':'아이디','password':'패스워드'})
 
