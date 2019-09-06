@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 //var mysql = require('mysql');
 app.use(express.static(__dirname + '/public'));
 var config = require('./config');
@@ -10,19 +10,16 @@ var session = require('express-session');
 //시험용코드(mysql session)
 var MYSQLStore = require('express-mysql-session')(session);
 var sessionStore = new MYSQLStore(config);
-//break
-
 var fs = require('fs');
-
 
 app.use(bodyParser.json());
 app.use(session({
-    secret : 'zenbusine!!!!!',
+    secret: 'zenbusine!!!!!',
     //시험용 코드 mysql session
-    store : sessionStore,
+    store: sessionStore,
     //break
-    resave : false,
-    saveUninitialized : true
+    resave: false,
+    saveUninitialized: true
 }));
 
 /*
@@ -49,59 +46,11 @@ app.get('/',function(req,res){
         res.redirect('/login');
     }
 });
+
 app.get('/login', function(req, res){
     res.render('login.ejs');
 });
-
-app.post('/login', function(req, res){
-
-    var id = req.body.username;
-    var pw = req.body.password;
-    var session = req.session;
-
-    connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
-        function( error, results, fields) {
-            if (error) 
-            {
-                console.log(error);
-                res.send({
-                    "code": 400,
-                    "failed": "error ocurred"
-                })
-            } else {
-            // console.log('The solution is: ', results);
-            if(results.length > 0) {
-                //console.log(results[0].StuPw);
-
-                if(results[0].StuPw == pw) {
-                 session.user = {
-                    "Id" : results[0].StuId,
-                    "age" : 25,
-                }
-                //if(session.user.Id)
-                //console.log(session.user.Id);
-
-                
-                res.redirect('/');
-
-            } else {
-                res.send({
-                    "code": 204,
-                    "success": "id and password does not match"
-                });
-            }
-        } else {
-            res.send({
-                "code":204,
-                "success": "Id does not exists"
-            });
-        }
-    }    
-})
-});
-
 //nfc 처리 코드(보내는건 curl/curl.h에 정의되어 있다.)
-
 //제작중!
 app.post('/process/nfc', function(req, res){
     var tag = req.body.tag; 
@@ -140,27 +89,15 @@ app.post('/process/nfc', function(req, res){
         }    
     })
 });
-
-app.get('/logout', function(req, res){
-    delete req.session;
-    res.redirect('/login')
-});
-
-app.get('/t', function(req, res){
-    res.render('t.ejs',{Id : 'sa'});
-});
-
-app.get('/mlogin', function(req, res){
-    res.render('mlogin.ejs');
-});
 */
 
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-app.set('views', __dirname+'/view');
+app.set('views', __dirname + '/view');
 
-var server = app.listen(process.env.PORT||8888, function(){
+var server = app.listen(process.env.PORT || 8888, function() {
     console.log("Express server has started on port 8888");
 });
+const io = require('socket.io')(server);
 
 var router = require('./router/main')(app);
