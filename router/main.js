@@ -105,6 +105,7 @@ module.exports = function(app, fs, io) {
     });
 
     app.get('/process/nfc', (req, res) => {
+        console.log('process/nfc get');
         res.send(req.session.tag);
     });
 
