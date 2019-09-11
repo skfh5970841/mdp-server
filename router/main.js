@@ -9,6 +9,18 @@ module.exports = function(app, fs, io) {
         connection.query('SELECT 1');
     }, 5000);
 
+    /*
+    function getData(){
+        return new Promise({
+            
+        });
+    }
+
+    getData()
+    .then(function(data){
+        
+    })
+    */
     app.get('/', (req, res) => {
         if (req.session.user) {
             res.render('user.ejs', {
@@ -22,7 +34,9 @@ module.exports = function(app, fs, io) {
     app.get('/login', (req, res) => {
         res.render('login.ejs');
     });
+    /*
 
+    */
     app.post('/login', (req, res) => {
         var id = req.body.username;
         var pw = req.body.password;
@@ -70,7 +84,7 @@ module.exports = function(app, fs, io) {
     });
      */
     app.post('/process/nfc', (req, res) => {
-        var tag = req.body.NFCnumber;
+        var tag = req.body.NFCNumber;
         var session = req.session;
         console.log("python: " + tag);
 
