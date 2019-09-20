@@ -87,7 +87,6 @@ module.exports = function(app, fs, io) {
         var tag = req.body.NFCNumber;
         var session = req.session;
         console.log("python: " + tag);
-
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
             (error, results, fields) => {
                 if (error) {
@@ -114,7 +113,6 @@ module.exports = function(app, fs, io) {
                         console.log('유효하지 않은 데이터입니다.');
                         //return '유효하지 않은 데이터입니다.'
                     }
-
                 }
             })
     });
@@ -143,12 +141,15 @@ module.exports = function(app, fs, io) {
         var id = req.body.Id;
         var pw = req.body.password;
         var cpw = req.body.confirm_password;
-        var email = reeq.body.email;
-
+        var email = req.body.email;
+        //쿼리문 입력하기
         if (name && id && pw && cpw && email) {
-            alert('모든 정보가 입력되었습니다.');
-
-            connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
+            console.log(name + ' ' + id + ' ' + pw + ' ' + cpw + ' ' + email + '모든 정보가 입력되었습니다.');
+            /*
+            INSERT INTO student (id, StuId, StuPw, 이름, 학년, 반, 번호, department, introduction, 기숙사방, NFCNumber)
+VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트컨트롤', 202, '');*/
+            /* string 타입 큰따음표 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111*/
+            connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + pw + '", "' + email + '", "' + name + '")',
                 (error, results, fields) => {
                     if (error) {
                         console.log(error);
@@ -157,33 +158,12 @@ module.exports = function(app, fs, io) {
                             "failed": "error ocurred"
                         })
                     } else {
-                        if (results.length > 0) {
-                            //console.log(results[0].StuPw);
-
-                            if (results[0].StuPw == pw) {
-                                session.user = {
-                                    "Id": results[0].StuId,
-                                    "age": 25,
-                                }
-                                res.redirect('/');
-
-                            } else {
-                                res.send({
-                                    "code": 204,
-                                    "success": "id and password does not match"
-                                });
-                            }
-                        } else {
-                            res.send({
-                                "code": 204,
-                                "success": "Id does not exists"
-                            });
-                        }
+                        res.send('성공!');
                     }
 
                 });
         } else {
-            alert('입력하지 않은 부분이 있습니다. 모두 입력하여 주세요');
+            console.log('입력하지 않은 부분이 있습니다. 모두 입력하여 주세요');
             res.redirect('/admin');
         }
     });

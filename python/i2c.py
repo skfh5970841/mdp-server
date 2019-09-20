@@ -5,7 +5,6 @@ import httplib, urllib
 import json
 import requests
 
-
 pn532 = Pn532_i2c()
 pn532.SAMconfigure()
  
