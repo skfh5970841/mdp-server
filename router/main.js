@@ -133,9 +133,6 @@ module.exports = function(app, fs, io) {
         res.redirect('/login')
     });
 
-    app.get('/t', (req, res) => {
-        res.render('t.ejs', { Id: 'sa' });
-    });
 
     app.post('/adduser', (req, res) => {
         var name = req.body.username;
@@ -277,45 +274,21 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
     })
 });*/
 
-    /*
-    const io = require('socket.io')(server);
-    io.on('connection', (socket) => {
 
-        socket.on('login', function(data) {
-            console.log('Client logged-in:\n name:' + data.name + '\n userid: ' + data.userid);
+    //const io = require('socket.io')(server);
+    app.get('/list', (req, res) => {
+        connection.query('select * from student',
+            (error, results, fields) => {
+                if (error) {
+                    console.log(error);
+                    res.send({
+                        "code": 400,
+                        "failed": "error ocurred"
+                    })
+                } else {
+                    res.send(results);
+                }
 
-            // socket에 클라이언트 정보를 저장한다
-            socket.name = data.name;
-            socket.userid = data.userid;
-
-            // 접속된 모든 클라이언트에게 메시지를 전송한다
-            io.emit('login', data.name);
-        });
-
-        // 클라이언트로부터의 메시지가 수신되면
-        socket.on('chat', function(data) {
-            console.log('Message from %s: %s', socket.name, data.msg);
-
-            var msg = {
-                from: {
-                    name: socket.name,
-                    userid: socket.userid
-                },
-                msg: data.msg
-            };
-
-            // 메시지를 전송한 클라이언트를 제외한 모든 클라이언트에게 메시지를 전송한다
-            socket.broadcast.emit('chat', msg);
-
-            // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
-            // socket.emit('s2c chat', msg);
-
-            // 접속된 모든 클라이언트에게 메시지를 전송한다
-            // io.emit('s2c chat', msg);
-
-            // 특정 클라이언트에게만 메시지를 전송한다
-            // io.to(id).emit('s2c chat', data);
-        });
-    })*/
-
+            });
+    })
 }
