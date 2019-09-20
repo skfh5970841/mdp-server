@@ -23,15 +23,6 @@ app.use(session({
 }));
 
 /*
-var connection = mysql.createConnection(config);
-
-connection.connect();
-// 일정한 시간마다 의미없는 쿼리문을 보내서 연결을 유지시킨다.
-setInterval(function () {
-    connection.query('SELECT 1');
-}, 5000);
-*/
-/*
 app.get('/', function(req, res){
     //res.send('<a href = "login">login<a>');
     res.render('main.ejs');
@@ -99,5 +90,6 @@ app.set('views', __dirname + '/view');
 var server = app.listen(process.env.PORT || 8888, function() {
     console.log("Express server has started on port 8888");
 });
+var io = require('socket.io')(server);
 
 var router = require('./router/main')(app);

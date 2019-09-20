@@ -125,6 +125,7 @@ module.exports = function(app, fs, io) {
     app.post('/deleteuser', (req, res) => {
         var name = req.body.username;
         connection.query('DELETE FROM student WHERE Stuid = ?', [name]);
+        res.send(name + '이 삭제되었습니다');
     });
 
     app.get('/logout', (req, res) => {
