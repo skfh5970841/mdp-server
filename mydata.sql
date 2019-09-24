@@ -1,0 +1,20 @@
+update student set NFCNumber = '04 bb 28 1a 7c 40 80' where id = 1;
+update student set NFCNumber = '04 55 2f 1a 7c 40 80' where id = 2;
+update student set NFCNumber = '04 90 b0 1a 7c 40 80' where id = 3;
+update student set NFCNumber = '04 c0 6d 1a 7c 40 80' where id = 4;
+update student set NFCNumber = '04 a1 9b 1a 7c 40 80' where id = 5;
+update student set NFCNumber = '04 eb 27 1a 7c 40 80' where id = 6;
+update student set NFCNumber = '04 02 d2 1a 7c 40 81' where id = 7;
+update student set NFCNumber = '04 84 2a 1a 7c 40 80' where id = 8;
+update student set NFCNumber = '04 94 9f 1a 7c 40 80' where id = 9;
+update student set NFCNumber = '04 3b ae 1a 7c 40 80' where id = 11;
+update student set NFCNumber = '04 9c 2a 1a 7c 40 80' where id = 12;
+update student set NFCNumber = '04 56 bb 1a 7c 40 80' where id = 13;
+update student set NFCNumber = '04 57 39 1a 7c 40 80' where id = 14;
+update student set NFCNumber = '04 c4 ae 1a 7c 40 80' where id = 15;
+update student set NFCNumber = '04 43 ab 1a 7c 40 80' where id = 16;
+update student set NFCNumber = '04 ef 2d 1a 7c 40 80' where id = 17;
+update student set NFCNumber = '04 d5 61 1a 7c 40 80' where id = 18;
+update student set NFCNumber = '04 7d b3 1a 7c 40 80' where id = 19;
+update student set NFCNumber = '04 ed 30 1a 7c 40 80' where id = 20;
+

@@ -277,6 +277,7 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
 
     //const io = require('socket.io')(server);
     app.get('/list', (req, res) => {
+        var session = req.session;
         connection.query('select * from student',
             (error, results, fields) => {
                 if (error) {
@@ -286,6 +287,8 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
                         "failed": "error ocurred"
                     })
                 } else {
+                    session = results;
+
                     res.send(results);
                 }
 
