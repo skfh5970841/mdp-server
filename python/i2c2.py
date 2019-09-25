@@ -14,7 +14,7 @@ pn532.SAMconfigure()
 card_data = {'NFCNumber' : pn532.read_mifare().get_data()}
 print(card_data)
 headers = {"Content-type":"application/x-www-form-urlencoded"}
-response = requests.post(url, data=json.dumps(card_data))
+response = requests.post(url, card_data)
 
 print(response.text)
 
