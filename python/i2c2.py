@@ -3,6 +3,7 @@ from py532lib.frame import *
 from py532lib.constants import *
 import RPi.GPIO as GPIO
 import requests
+import json
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.OUT)
