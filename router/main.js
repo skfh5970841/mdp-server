@@ -95,9 +95,6 @@ module.exports = function(app, fs, server) {
         var tag = req.body.NFCNumber;
         var session = req.session;
 
-        io.on('connection', (socket) => {
-            io.emit('data', tag);
-        });
 
         console.log(typeof(tag));
         console.log("python: " + tag);
@@ -293,6 +290,7 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
     app.get('/list', (req, res) => {
         var session = req.session;
         console.log('list get');
+
         connection.query('select * from student',
             (error, results, fields) => {
                 if (error) {
@@ -303,6 +301,9 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
                     })
                 } else {
                     session.list = results;
+                    io.on('connection', (socket) => {
+                        io.emit('data', results);
+                    });
                     //console.log(session.list);
                     res.send('session.list created');
                 }
