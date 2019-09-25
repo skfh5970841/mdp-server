@@ -19,7 +19,7 @@ print(response.text)
 
 if response.text == 'OK' : 
     GPIO.output(21, 1)
-else
+else : 
     GPIO.output(21, 0)
 
 

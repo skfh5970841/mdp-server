@@ -23,6 +23,8 @@ module.exports = function(app, fs, io) {
     */
     app.get('/', (req, res) => {
         if (req.session.user) {
+            console.log(typeof(req.session.user));
+            console.log('it has req.session.user');
             res.render('user.ejs', {
                 Id: req.session.user.Id
             });
@@ -34,15 +36,12 @@ module.exports = function(app, fs, io) {
     app.get('/login', (req, res) => {
         res.render('login.ejs');
     });
-    /*
 
-    */
     app.post('/login', (req, res) => {
         var id = req.body.username;
         var pw = req.body.password;
         var session = req.session;
         console.log('this is login post select');
-
         connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
             (error, results, fields) => {
                 if (error) {
@@ -273,11 +272,10 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
         }    
     })
 });*/
-
-
     //const io = require('socket.io')(server);
     app.get('/list', (req, res) => {
         var session = req.session;
+        console.log('list get');
         connection.query('select * from student',
             (error, results, fields) => {
                 if (error) {
@@ -287,11 +285,10 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
                         "failed": "error ocurred"
                     })
                 } else {
-                    session = results;
-
-                    res.send(results);
+                    session.list = results;
+                    //console.log(session.list);
+                    res.send('session.list created');
                 }
-
             });
     })
 }
