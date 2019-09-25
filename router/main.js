@@ -85,6 +85,7 @@ module.exports = function(app, fs, io) {
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
         var session = req.session;
+        console.log(typeof(tag));
         console.log("python: " + tag);
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
             (error, results, fields) => {
