@@ -100,4 +100,4 @@ io.on('connection', (socket) => {
 });
 //
 */
-var router = require('./router/main')(app);
+var router = require('./router/main')(app, server);

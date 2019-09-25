@@ -1,4 +1,13 @@
-module.exports = function(app, fs, io) {
+module.exports = function(app, fs, server) {
+    //
+    const io = require('socket.io')(server);
+    //proccessing
+    io.on('connection', (socket) => {
+        socket.on('select_data', (data) => {
+            console.log('Message from Client: ' + data);
+        });
+    });
+
 
     var mysql = require('mysql');
     var config = require('../config');
@@ -85,6 +94,11 @@ module.exports = function(app, fs, io) {
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
         var session = req.session;
+
+        io.on('connection', (socket) => {
+            io.emit('data', tag);
+        });
+
         console.log(typeof(tag));
         console.log("python: " + tag);
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
@@ -184,11 +198,13 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
         res.redirect('/admin');
     });*/
     app.get('/admin', (req, res) => {
-        console.log('this is /admin get');
         if (req.session.select) {
             console.log(res.session.select);
             res.redirect('admin2');
-        } else res.render('admin.ejs');
+        } else {
+            res.render('admin.ejs');
+            console.log('admin.ejs rendered');
+        }
     });
 
     //반 선택
