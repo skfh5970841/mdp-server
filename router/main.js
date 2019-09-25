@@ -150,7 +150,7 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
             connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + pw + '", "' + email + '", "' + name + '")',
                 (error, results, fields) => {
                     if (error) {
-                        console.log(error);
+                        //console.log(error);
                         res.send({
                             "code": 400,
                             "failed": "error ocurred"
