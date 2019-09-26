@@ -1,13 +1,11 @@
-module.exports = function(app, fs, server) {
+module.exports = function(app, io) {
     //
-    const io = require('socket.io')(server);
     //proccessing
-    io.on('connection', (socket) => {
+    /*io.on('connection', (socket) => {
         socket.on('select_data', (data) => {
             console.log('Message from Client: ' + data);
         });
-    });
-
+    });*/
 
     var mysql = require('mysql');
     var config = require('../config');
@@ -134,9 +132,9 @@ module.exports = function(app, fs, server) {
     });
 
     app.post('/deleteuser', (req, res) => {
-        var name = req.body.username;
-        connection.query('DELETE FROM student WHERE Stuid = ?', [name]);
-        res.send(name + '이 삭제되었습니다');
+        var name = req.body.Stuid;
+        connection.query('DELETE FROM student WHERE Stuid =?', name);
+        res.redirect('/admin');
     });
 
     app.get('/logout', (req, res) => {
@@ -158,7 +156,7 @@ module.exports = function(app, fs, server) {
             INSERT INTO student (id, StuId, StuPw, 이름, 학년, 반, 번호, department, introduction, 기숙사방, NFCNumber)
 VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트컨트롤', 202, '');*/
             /* string 타입 큰따음표 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111*/
-            connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + pw + '", "' + email + '", "' + name + '")',
+            connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + Stuid + '", "' + pw + '", "' + name + '")',
                 (error, results, fields) => {
                     if (error) {
                         //console.log(error);
@@ -167,7 +165,8 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
                             "failed": "error ocurred"
                         })
                     } else {
-                        res.send('성공!');
+                        console.log()
+                        res.redirect('/admin');
                     }
 
                 });
@@ -194,54 +193,102 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
             });
         res.redirect('/admin');
     });*/
+    /*app.post('/admin', (req, res) => {
+        console.log('/admin post');
+        var button = req.body.list;
+        console.log(button);
+        if (button == "LIST") {
+            console.log("LIST");
+            connection.query('select * from student',
+                (error, results, fields) => {
+                    if (error) {
+                        console.log(error);
+                        res.send({
+                            "code": 400,
+                            "failed": "error ocurred"
+                        })
+                    } else {
+                        
+                        res.redirect('/admin');
+                    }
+                });
+        } else res.redirect('/admin');
+    });*/
+
+    io.on('connection', (socket) => {
+        console.log('io connected');
+        connection.query('SELECT * FROM student',
+            (error, results, fields) => {
+                if (error) {
+                    console.log(error);
+                    res.send({
+                        "code": 400,
+                        "failed": "error ocurred"
+                    })
+                } else {
+                    //console.log(results);
+                    io.emit('data', results);
+                }
+            });
+
+        socket.on('student data request', () => {
+            socket.emit('student data sending', data)
+        })
+    });
+    /*
+    io.on('connection', function(socket) {
+
+      // 접속한 클라이언트의 정보가 수신되면
+      socket.on('login', function(data) {
+        console.log('Client logged-in:\n name:' + data.name + '\n userid: ' + data.userid);
+
+        // socket에 클라이언트 정보를 저장한다
+        socket.name = data.name;
+        socket.userid = data.userid;
+
+        // 접속된 모든 클라이언트에게 메시지를 전송한다
+        io.emit('login', data.name );
+      });
+
+      // 클라이언트로부터의 메시지가 수신되면
+      socket.on('chat', function(data) {
+        console.log('Message from %s: %s', socket.name, data.msg);
+
+        var msg = {
+          from: {
+            name: socket.name,
+            userid: socket.userid
+          },
+          msg: data.msg
+        };
+
+        // 메시지를 전송한 클라이언트를 제외한 모든 클라이언트에게 메시지를 전송한다
+        socket.broadcast.emit('chat', msg);
+
+        // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
+        // socket.emit('s2c chat', msg);
+
+        // 접속된 모든 클라이언트에게 메시지를 전송한다
+        // io.emit('s2c chat', msg);
+
+        // 특정 클라이언트에게만 메시지를 전송한다
+        // io.to(id).emit('s2c chat', data);
+      });
+
+      // force client disconnect from server
+      socket.on('forceDisconnect', function() {
+        socket.disconnect();
+      })
+
+      socket.on('disconnect', function() {
+        console.log('user disconnected: ' + socket.name);
+      });
+    });*/
     app.get('/admin', (req, res) => {
-        if (req.session.select) {
-            console.log(res.session.select);
-            res.redirect('admin2');
-        } else {
-            res.render('admin.ejs');
-            console.log('admin.ejs rendered');
-        }
+
+        res.render('admin.ejs');
     });
 
-    //반 선택
-    /*
-    app.post('/admin', (req, res)=>{
-        var classname = req.body.classname;
-        var select;
-        var session = req.session;
-        console.log('this is /admin post');
-        console.log('kickckckckckckckckckckckck');
-        console.log(classname);
-        switch (classname) {
-            case "ec1": select = 1;
-            break;
-            case "ec2": select = 2;
-            break;
-            case "ec3": select = 3;
-            break;
-            case "ecd1": select = 4;
-            break;
-            case "ecd2": select = 5;
-            break;
-            case "ecd3": select = 6;
-            break;
-            case "ice1": select = 7;
-            break;
-            case "ice2": select = 8;
-            break;    
-            default: res.send('wrong input data');
-            //res.redirect('/admin');
-            break;    
-        }
-        console.log(select);
-        if(select != null)
-        {
-            session.select = {
-                "select" : select,
-            }
-        }
-    });*/
 
     // processing!!!!!
     /*
@@ -287,26 +334,10 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
     })
 });*/
     //const io = require('socket.io')(server);
+
     app.get('/list', (req, res) => {
         var session = req.session;
         console.log('list get');
 
-        connection.query('select * from student',
-            (error, results, fields) => {
-                if (error) {
-                    console.log(error);
-                    res.send({
-                        "code": 400,
-                        "failed": "error ocurred"
-                    })
-                } else {
-                    session.list = results;
-                    io.on('connection', (socket) => {
-                        io.emit('data', results);
-                    });
-                    //console.log(session.list);
-                    res.send('session.list created');
-                }
-            });
     })
 }

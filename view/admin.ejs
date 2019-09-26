@@ -7,7 +7,25 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var x;
-        var socketdata;
+        var i;
+        var tmp;
+        var socket = io();
+
+        socket.on('data', function(data) {
+            //console.log(data);
+            for (i = 0; i < data.length; i++) {
+                tmp += data[i].id + " 이름 : " + data[i].이름 + " " + data[i].StuId + "<br>";
+                //document.getElementById("list").innerText = data[i].이름;
+                //document.getElementById("list").innerHTML = "<br>";
+            }
+            tmp = tmp.toString();
+            console.log(typeof(tmp));
+            document.getElementById("list").innerHTML = tmp.replace('undefined', '');
+        });
+
+        function confirmdelete() {
+            alert(document.getElementById("delete").value + " deleted!");
+        }
 
         function toggle(id) {
             //x = document.getElementById("toggle1"); 
@@ -30,19 +48,6 @@
             } else {
                 x.style.display = "block"
             }
-        }
-        /*
-         */
-        function io() {
-            var socket = io();
-            alert('io connected');
-            //socket.emit("")
-
-            socket.on('data', function(data) {
-                alert('list' + data);
-                socketdata = data;
-                document.getElementById("demo").innerHTML = socketdata;
-            });
         }
     </script>
 
@@ -79,6 +84,7 @@
     <div id="toggle1" class="form">
         <form action="/adduser" method=post>
             <input type="text" name="username" placeholder="name" />
+            <input type="text" name="Stuid" placeholder="id for login">
             <input type="text" name="Id" placeholder="id">
             <input type="password" name="password" placeholder="password" />
             <input type="password" name="confirm_password" placeholder="confirm password" />
@@ -89,8 +95,8 @@
     </div>
     <div id="toggle2" class="form">
         <form action="/deleteuser" method=post>
-            <input type="text" name="username" placeholder="name" />
-            <button>delete</button>
+            <input id="delete" type="text" name="Stuid" placeholder="Stuid" />
+            <button onclick="confirmdelete()">delete</button>
         </form>
     </div>
 
@@ -108,7 +114,12 @@
     </div>
 
     <div id="toggle4" class="form">
-        <input class="button" type="button" value="학생 목록" id="b4" onclick="io()">
+        <input class="button" type="button" value="학생 목록" id="b4" onclick="iodata()">
+        <!--<form action="/admin" method="POST">
+            <input class="button" type="text" name="list" value="list">
+            <button>confirm</button>
+        </form> -->
+
         <div>
             <p id="list">
 
