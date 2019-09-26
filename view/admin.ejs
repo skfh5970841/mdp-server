@@ -7,6 +7,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var x;
+        var socketdata;
 
         function toggle(id) {
             //x = document.getElementById("toggle1"); 
@@ -36,8 +37,11 @@
             var socket = io();
             alert('io connected');
             //socket.emit("")
+
             socket.on('data', function(data) {
                 alert('list' + data);
+                socketdata = data;
+                document.getElementById("demo").innerHTML = socketdata;
             });
         }
     </script>
@@ -105,6 +109,11 @@
 
     <div id="toggle4" class="form">
         <input class="button" type="button" value="학생 목록" id="b4" onclick="io()">
+        <div>
+            <p id="list">
+
+            </p>
+        </div>
     </div>
     <!--<div id="toggle4" class="form">
         <form action="/process/nfc" method=post>
