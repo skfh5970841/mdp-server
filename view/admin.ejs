@@ -19,7 +19,7 @@
                  //document.getElementById("list").innerText = data[i].이름;
                  //document.getElementById("list").innerHTML = "<br>";
              }*/
-            tmp = "<table border='1' bordercolor='blue' width ='400' height='300' align = 'center'><th>번호</th> <th>이름</th> <th>학생 id</th>";
+            tmp = "<table border='1' bordercolor='blue' width ='300' height='300' align = 'center'><th>번호</th> <th>이름</th> <th>학생 id</th>";
             for (i = 0; i < data.length; i++) {
                 tmp += "<tr> <td>" + data[i].id + "</td> <td>" + data[i].이름 + "</td> <td>" + data[i].StuId + "</td> </tr>";
             }
@@ -126,7 +126,7 @@
     </div>-->
 
     <div id="toggle4" class="form">
-        <input class="button" type="button" value="학생 목록" id="b4" onclick="iodata()">
+        <input class="button" type="button" style="color: black" value="학생 목록" id="b4" onclick="iodata()">
         <!--<form action="/admin" method="POST">
             <input class="button" type="text" name="list" value="list">
             <button>confirm</button>

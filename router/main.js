@@ -146,6 +146,7 @@ module.exports = function(app, io) {
     app.post('/adduser', (req, res) => {
         var name = req.body.username;
         var id = req.body.Id;
+        var Stuid = req.body.Stuid;
         var pw = req.body.password;
         var cpw = req.body.confirm_password;
         var email = req.body.email;
@@ -159,7 +160,7 @@ module.exports = function(app, io) {
                         res.send({
                             "code": 400,
                             "failed": "error ocurred"
-                        })
+                        });
                     } else {
                         console.log()
                         res.redirect('/admin');
