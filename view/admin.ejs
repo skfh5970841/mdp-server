@@ -13,15 +13,25 @@
 
         socket.on('data', function(data) {
             //console.log(data);
+
+            /* for (i = 0; i < data.length; i++) {
+                 tmp += data[i].id + " 이름 : " + data[i].이름 + " " + data[i].StuId + "<br>";
+                 //document.getElementById("list").innerText = data[i].이름;
+                 //document.getElementById("list").innerHTML = "<br>";
+             }*/
+            tmp = "<table border='1' bordercolor='blue' width ='400' height='300' align = 'center'><th>번호</th> <th>이름</th> <th>학생 id</th>";
             for (i = 0; i < data.length; i++) {
-                tmp += data[i].id + " 이름 : " + data[i].이름 + " " + data[i].StuId + "<br>";
-                //document.getElementById("list").innerText = data[i].이름;
-                //document.getElementById("list").innerHTML = "<br>";
+                tmp += "<tr> <td>" + data[i].id + "</td> <td>" + data[i].이름 + "</td> <td>" + data[i].StuId + "</td> </tr>";
             }
+            tmp += "</table>"
             tmp = tmp.toString();
             console.log(typeof(tmp));
             document.getElementById("list").innerHTML = tmp.replace('undefined', '');
         });
+
+        function select_class() {
+            socket.emit('select_class', document.getElementById("class").value);
+        }
 
         function confirmdelete() {
             alert(document.getElementById("delete").value + " deleted!");
@@ -100,8 +110,8 @@
         </form>
     </div>
 
-    <!--구현중!-->
-    <div id="toggle3" class="form">
+
+    <!--<div id="toggle3" class="form">
         <h3>select your class!</h3>
         <h4>
             <h5>3학년</h5>
@@ -110,8 +120,10 @@
                 <input type="text" name="classname" placeholder="classname" />
                 <button>confirm</button>
             </form>
+            <input type="text" id="class" name="classname" placeholder="classname" />
+            <button onclick="select_class()"></button>
         </h4>
-    </div>
+    </div>-->
 
     <div id="toggle4" class="form">
         <input class="button" type="button" value="학생 목록" id="b4" onclick="iodata()">

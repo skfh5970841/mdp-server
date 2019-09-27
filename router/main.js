@@ -152,10 +152,6 @@ module.exports = function(app, io) {
         //쿼리문 입력하기
         if (name && id && pw && cpw && email) {
             console.log(name + ' ' + id + ' ' + pw + ' ' + cpw + ' ' + email + '모든 정보가 입력되었습니다.');
-            /*
-            INSERT INTO student (id, StuId, StuPw, 이름, 학년, 반, 번호, department, introduction, 기숙사방, NFCNumber)
-VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트컨트롤', 202, '');*/
-            /* string 타입 큰따음표 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111*/
             connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + Stuid + '", "' + pw + '", "' + name + '")',
                 (error, results, fields) => {
                     if (error) {
@@ -176,44 +172,6 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
         }
     });
 
-    //정보전달
-    /*app.post('/admin', (req, res)=>{
-        //var sql = 'SELECT * FROM student';
-        var session = req.session;
-        connection.query('SELECT * FROM student',
-            (error, results, fields) =>{
-                if(error){
-                    alert('error occured, please try again');
-                    res.redirect('/admin');
-                }
-                else {
-                    console.log(results);
-                    //session information = {results};
-                }
-            });
-        res.redirect('/admin');
-    });*/
-    /*app.post('/admin', (req, res) => {
-        console.log('/admin post');
-        var button = req.body.list;
-        console.log(button);
-        if (button == "LIST") {
-            console.log("LIST");
-            connection.query('select * from student',
-                (error, results, fields) => {
-                    if (error) {
-                        console.log(error);
-                        res.send({
-                            "code": 400,
-                            "failed": "error ocurred"
-                        })
-                    } else {
-                        
-                        res.redirect('/admin');
-                    }
-                });
-        } else res.redirect('/admin');
-    });*/
 
     io.on('connection', (socket) => {
         console.log('io connected');
@@ -233,7 +191,10 @@ VALUES (2, 'kimeunsu', 1234, '김은수', 3, 3, 2, '전자제어과', '넥스트
 
         socket.on('student data request', () => {
             socket.emit('student data sending', data)
-        })
+        });
+        /*socket.on('select_class', (data) => {
+
+        });*/
     });
     /*
     io.on('connection', function(socket) {
