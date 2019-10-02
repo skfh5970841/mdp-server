@@ -92,10 +92,14 @@ module.exports = function(app, io) {
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
         var session = req.session;
-
-
+        var i;
+        var tagdata;
         console.log(typeof(tag));
         console.log("python: " + tag);
+        /*for (i = 0; i < tag.length; i+2) {
+            tagdata += tag[i] + tag' ';
+        }*/
+        //console.log(tagdata);
         connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
             (error, results, fields) => {
                 if (error) {
@@ -105,22 +109,11 @@ module.exports = function(app, io) {
                         "failed": "error ocurred"
                     })
                 } else {
-                    res.send(tag);
-                    session.nfc = {
-                            "nfc": tag
-                        }
-                        // console.log('The solution is: ', results);
+                    //res.send(tag);
+                    // console.log('The solution is: ', results);
                     if (results.length > 0) {
-                        if (results[0].NFCNumber == tag) {
-                            console.log('정상처리 되었습니다.');
-                            res.send('OK');
-                        } else {
-                            console.log('없는 데이터입니다..');
-                            //return '없는 데이터입니다.'
-                        }
-                    } else {
-                        console.log('유효하지 않은 데이터입니다.');
-                        //return '유효하지 않은 데이터입니다.'
+                        console.log('정상처리 되었습니다.');
+                        res.send('OK');
                     }
                 }
             })
@@ -297,9 +290,4 @@ module.exports = function(app, io) {
 });*/
     //const io = require('socket.io')(server);
 
-    app.get('/list', (req, res) => {
-        var session = req.session;
-        console.log('list get');
-
-    })
 }
