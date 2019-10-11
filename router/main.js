@@ -107,13 +107,15 @@ module.exports = function(app, io) {
                     res.send({
                         "code": 400,
                         "failed": "error ocurred"
-                    })
+                    });
                 } else {
                     //res.send(tag);
                     // console.log('The solution is: ', results);
                     if (results.length > 0) {
                         console.log('정상처리 되었습니다.');
                         res.send('OK');
+                    } else {
+                        res.send('unknowned data');
                     }
                 }
             })
@@ -134,7 +136,6 @@ module.exports = function(app, io) {
         delete req.session;
         res.redirect('/login')
     });
-
 
     app.post('/adduser', (req, res) => {
         var name = req.body.username;
@@ -176,7 +177,7 @@ module.exports = function(app, io) {
                     res.send({
                         "code": 400,
                         "failed": "error ocurred"
-                    })
+                    });
                 } else {
                     //console.log(results);
                     io.emit('data', results);
@@ -184,7 +185,7 @@ module.exports = function(app, io) {
             });
 
         socket.on('student data request', () => {
-            socket.emit('student data sending', data)
+            socket.emit('student data sending', data);
         });
         /*socket.on('select_class', (data) => {
 
@@ -240,7 +241,6 @@ module.exports = function(app, io) {
       });
     });*/
     app.get('/admin', (req, res) => {
-
         res.render('admin.ejs');
     });
 
