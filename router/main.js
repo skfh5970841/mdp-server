@@ -167,7 +167,6 @@ module.exports = function(app, io) {
         }
     });
 
-
     io.on('connection', (socket) => {
         console.log('io connected');
         connection.query('SELECT * FROM student',
@@ -184,12 +183,36 @@ module.exports = function(app, io) {
                 }
             });
 
-        socket.on('student data request', () => {
-            socket.emit('student data sending', data);
+        connection.query('SELECT * FROM sit_stat', (error, results, fields) => {
+            var sit_data;
+            if (error) {
+                console.log(error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                });
+            } else {
+                sit_data = JSON.parse(JSON.stringify(results));
+                console.log(sit_data);
+                socket.emit('sit_data', sit_data);
+            }
         });
-        /*socket.on('select_class', (data) => {
 
-        });*/
+        socket.on('send_status', (button_id) => {
+            //update student set NFCNumber = '04 bb 28 1a 7c 40 80' where id is 1;
+            /*if (button_id) {
+                var sql = "update sit_stat set sit_status " + button_id + " where id is " + button_id;
+                console.log(sql);
+                connection.query(sql, (error, results, fields) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+
+                    }
+                });
+            }*/
+        });
+
     });
     /*
     io.on('connection', function(socket) {
@@ -244,50 +267,8 @@ module.exports = function(app, io) {
         res.render('admin.ejs');
     });
 
-
-    // processing!!!!!
-    /*
-    app.post('/admin', (req, res)=>{
-    var classname = req.body.classname;
-    var session = req.session;
-    console.log('this is admin post select');
-    console.log(classname);
-    
-    connection.query('SELECT * FROM student WHERE Stuid = ?', [id],
-        (error, results, fields) =>{
-            if (error) 
-            {
-                console.log(error);
-                res.send({
-                    "code": 400,
-                    "failed": "error ocurred"
-                })
-            } else {
-                if(results.length > 0) {
-                    //console.log(results[0].StuPw);
-
-                    if(results[0].StuPw == pw) {
-                       session.user = {
-                        "Id" : results[0].StuId,
-                        "age" : 25,
-                    }                 
-                    res.redirect('/');
-
-                } else {
-                    res.send({
-                        "code": 204,
-                        "success": "id and password does not match"
-                    });
-                }
-            } else {
-                res.send({
-                    "code":204,
-                    "success": "Id does not exists"
-                });
-            }
-        }    
-    })
-});*/
     //const io = require('socket.io')(server);
-
+    app.get('/munhak', (req, res) => {
+        res.render('munhaksil.html');
+    });
 }
