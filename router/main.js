@@ -199,70 +199,23 @@ module.exports = function(app, io) {
         });
 
         socket.on('send_status', (button_id) => {
-            //update student set NFCNumber = '04 bb 28 1a 7c 40 80' where id is 1;
-            /*if (button_id) {
-                var sql = "update sit_stat set sit_status " + button_id + " where id is " + button_id;
+            console.log(button_id);
+            //update sit_stat set sit_status 1 where id = 1;
+            if (button_id) {
+                var sql = "UPDATE sit_stat set sit_status = " + button_id + " where id = " + button_id;
                 console.log(sql);
                 connection.query(sql, (error, results, fields) => {
                     if (error) {
                         console.log(error);
                     } else {
-
+                        console.log(results);
                     }
                 });
-            }*/
+            }
         });
-
     });
-    /*
-    io.on('connection', function(socket) {
 
-      // 접속한 클라이언트의 정보가 수신되면
-      socket.on('login', function(data) {
-        console.log('Client logged-in:\n name:' + data.name + '\n userid: ' + data.userid);
 
-        // socket에 클라이언트 정보를 저장한다
-        socket.name = data.name;
-        socket.userid = data.userid;
-
-        // 접속된 모든 클라이언트에게 메시지를 전송한다
-        io.emit('login', data.name );
-      });
-
-      // 클라이언트로부터의 메시지가 수신되면
-      socket.on('chat', function(data) {
-        console.log('Message from %s: %s', socket.name, data.msg);
-
-        var msg = {
-          from: {
-            name: socket.name,
-            userid: socket.userid
-          },
-          msg: data.msg
-        };
-
-        // 메시지를 전송한 클라이언트를 제외한 모든 클라이언트에게 메시지를 전송한다
-        socket.broadcast.emit('chat', msg);
-
-        // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
-        // socket.emit('s2c chat', msg);
-
-        // 접속된 모든 클라이언트에게 메시지를 전송한다
-        // io.emit('s2c chat', msg);
-
-        // 특정 클라이언트에게만 메시지를 전송한다
-        // io.to(id).emit('s2c chat', data);
-      });
-
-      // force client disconnect from server
-      socket.on('forceDisconnect', function() {
-        socket.disconnect();
-      })
-
-      socket.on('disconnect', function() {
-        console.log('user disconnected: ' + socket.name);
-      });
-    });*/
     app.get('/admin', (req, res) => {
         res.render('admin.ejs');
     });

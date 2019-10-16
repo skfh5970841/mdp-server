@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="/socket.io/socket.io.js"></script>
+    <style>
+        input[type=button] {
+            height: 40px;
+            width: 100px;
+        }
+    </style>
     <script>
         var flag;
         var sit_data;
@@ -55,10 +61,10 @@
     <br>
     <h3>자리 예약하기</h3>
     <div id="buttons">
-        <input type="button" name="1번" id="1" onclick="send_data(this.id)">
-        <input type="button" name="2번" id="2" onclick="send_data(this.id)">
-        <input type="button" name="3번" id="3" onclick="send_data(this.id)">
-        <input type="button" name="4번" id="4" onclick="send_data(this.id)">
+        <input type="button" id="1" onclick="send_data(this.id)" placeholder="1번자리">
+        <input type="button" id="2" onclick="send_data(this.id)" placeholder="2번자리">
+        <input type="button" id="3" onclick="send_data(this.id)" placeholder="3번자리">
+        <input type="button" id="4" onclick="send_data(this.id)" placeholder="4번자리">
     </div>
 </body>
 
