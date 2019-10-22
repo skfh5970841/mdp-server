@@ -94,13 +94,17 @@ module.exports = function(app, io) {
         var session = req.session;
         var i;
         var tagdata;
+        var sql = `SELECT * FROM student WHERE NFCNumber = ${tag}`;
         console.log(typeof(tag));
         console.log("python: " + tag);
         /*for (i = 0; i < tag.length; i+2) {
             tagdata += tag[i] + tag' ';
         }*/
         //console.log(tagdata);
-        connection.query('SELECT * FROM student WHERE NFCNumber = ?', [tag],
+        tag = '"' + tag + '"';
+        var sql = `SELECT * FROM student WHERE NFCNumber = ${tag}`;
+
+        connection.query( /*'SELECT * FROM student WHERE NFCNumber = ?', [tag]*/ sql,
             (error, results, fields) => {
                 if (error) {
                     console.log(error);
@@ -203,6 +207,7 @@ module.exports = function(app, io) {
             //update sit_stat set sit_status 1 where id = 1;
             if (button_id) {
                 var sql = "UPDATE sit_stat set sit_status = " + button_id + " where id = " + button_id;
+                //var sql = `UPDATE sit_stat set sit_status = ${button_id} where id = " + button_id`
                 console.log(sql);
                 connection.query(sql, (error, results, fields) => {
                     if (error) {
@@ -213,8 +218,6 @@ module.exports = function(app, io) {
                 });
             }
         });
-
-
     });
 
 

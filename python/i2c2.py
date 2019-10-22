@@ -25,5 +25,5 @@ while 1 :
         GPIO.output(21, 1)
     else : 
         GPIO.output(21, 0)
-    time.sleep(1)
+    time.sleep(2)
 
