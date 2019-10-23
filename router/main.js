@@ -103,7 +103,7 @@ module.exports = function(app, io) {
         sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
         console.log(sql);
 
-        connection.query(sql, (error, results, fields) => {
+        connection.query(`SELECT * FROM student WHERE NFCNumber = ${tagdata}`, (error, results, fields) => {
             if (error) {
                 console.log(error);
                 res.send({
