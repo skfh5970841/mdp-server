@@ -96,11 +96,13 @@ module.exports = function(app, io) {
         var tagdata;
         var sql = `SELECT * FROM student WHERE NFCNumber = ${tag}`;
         console.log(typeof(tag));
-        console.log("python: " + tag);
-        /*for (i = 0; i < tag.length; i+2) {
-            tagdata += tag[i] + tag' ';
-        }*/
+        for (i = 0; i < tag.length; i + 2) {
+            tagdata += tag[i] + tag ' '
+        }
         //console.log(tagdata);
+        console.log(typeof(tag));
+
+        console.log("python: " + tag);
         tag = '"' + tag + '"';
         var sql = `SELECT * FROM student WHERE NFCNumber = ${tag}`;
 
