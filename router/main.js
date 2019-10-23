@@ -96,11 +96,12 @@ module.exports = function(app, io) {
         var tagdata;
         var sql;
         for (i = 0; i < tag.length; i++) {
-            tagdata += tag[i] + ' ';
+            if (tag.length != 13)
+                tagdata += tag[i] + ' ';
         }
         tagdata = ('"' + tagdata + '"').replace('undefined', '');
-        console.log("python: " + tagdata);
         sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
+        console.log(sql);
 
         connection.query(sql, (error, results, fields) => {
             if (error) {
