@@ -95,6 +95,7 @@ module.exports = function(app, io) {
         var i;
         var tagdata;
         //console.log(typeof(tag));
+        console.log(tag);
         for (i = 0; i < tag.length; i + 2) {
             tagdata += tag[i] + tag + ' '
         }
