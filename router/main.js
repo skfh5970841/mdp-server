@@ -95,15 +95,15 @@ module.exports = function(app, io) {
         var i;
         var tagdata;
         var sql = `SELECT * FROM student WHERE NFCNumber = ${tag}`;
-        console.log(typeof(tag));
+        //console.log(typeof(tag));
         for (i = 0; i < tag.length; i + 2) {
             tagdata += tag[i] + tag ' '
         }
         //console.log(tagdata);
-        console.log(typeof(tag));
+        //console.log(typeof(tag));
 
-        console.log("python: " + tag);
-        tag = '"' + tag + '"';
+        console.log("python: " + tagdata);
+        tagdata = '"' + tagdata + '"';
         var sql = `SELECT * FROM student WHERE NFCNumber = ${tag}`;
 
         connection.query( /*'SELECT * FROM student WHERE NFCNumber = ?', [tag]*/ sql,
@@ -126,11 +126,11 @@ module.exports = function(app, io) {
                 }
             })
     });
-
-    app.get('/process/nfc', (req, res) => {
-        console.log('process/nfc get');
-        res.send(req.session.tag);
-    });
+    /*
+        app.get('/process/nfc', (req, res) => {
+            console.log('process/nfc get');
+            res.send(req.session.tag);
+        });*/
 
     app.post('/deleteuser', (req, res) => {
         var name = req.body.Stuid;
