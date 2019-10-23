@@ -104,9 +104,10 @@ module.exports = function(app, io) {
 
         console.log(tagdata);
         console.log("python: " + tagdata);
-        tagdata = '"' + tagdata + '"';
+        tagdata = '"' + tagdata + '"'.replace('undefined', '');
         var sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
         console.log(sql);
+
         connection.query( /*'SELECT * FROM student WHERE NFCNumber = ?', [tag]*/ sql,
             (error, results, fields) => {
                 if (error) {
