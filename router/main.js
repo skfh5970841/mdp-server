@@ -104,29 +104,28 @@ module.exports = function(app, io) {
 
         console.log(tagdata);
         console.log("python: " + tagdata);
-        tagdata = '"' + tagdata + '"'.replace('undefined', '');
+        tagdata = ('"' + tagdata + '"').replace('undefined', '');
         var sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
-        console.log(sql);
+        //console.log(sql);
 
-        connection.query( /*'SELECT * FROM student WHERE NFCNumber = ?', [tag]*/ sql,
-            (error, results, fields) => {
-                if (error) {
-                    console.log(error);
-                    res.send({
-                        "code": 400,
-                        "failed": "error ocurred"
-                    });
+        connection.query(sql, (error, results, fields) => {
+            if (error) {
+                console.log(error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                });
+            } else {
+                //res.send(tag);
+                // console.log('The solution is: ', results);
+                if (results.length > 0) {
+                    console.log('정상처리 되었습니다.');
+                    res.send('OK');
                 } else {
-                    //res.send(tag);
-                    // console.log('The solution is: ', results);
-                    if (results.length > 0) {
-                        console.log('정상처리 되었습니다.');
-                        res.send('OK');
-                    } else {
-                        res.send('unknowned data');
-                    }
+                    res.send('unknowned data');
                 }
-            })
+            }
+        })
     });
     /*
         app.get('/process/nfc', (req, res) => {
