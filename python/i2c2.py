@@ -9,7 +9,8 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.OUT)
 
-url = "http://zenbusine.herokuapp.com/process/nfc"
+#url = "http://zenbusine.herokuapp.com/process/nfc"
+url = "http://localhost:8888/process/nfc"
 
 while 1 : 
     pn532 = Pn532_i2c()
