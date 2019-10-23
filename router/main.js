@@ -94,19 +94,13 @@ module.exports = function(app, io) {
         var session = req.session;
         var i;
         var tagdata;
-        //console.log(typeof(tag));
-        console.log(tag);
-        console.log(tag.length);
-
+        var sql;
         for (i = 0; i < tag.length; i++) {
             tagdata += tag[i] + ' ';
         }
-
-        console.log(tagdata);
-        console.log("python: " + tagdata);
         tagdata = ('"' + tagdata + '"').replace('undefined', '');
-        var sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
-        //console.log(sql);
+        console.log("python: " + tagdata);
+        sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
 
         connection.query(sql, (error, results, fields) => {
             if (error) {
