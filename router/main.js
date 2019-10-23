@@ -203,19 +203,23 @@ module.exports = function(app, io) {
         });
 
         socket.on('send_status', (button_id) => {
-            console.log(button_id);
+            //console.log(button_id);
             //update sit_stat set sit_status 1 where id = 1;
             if (button_id) {
-                var sql = "UPDATE sit_stat set sit_status = " + button_id + " where id = " + button_id;
-                //var sql = `UPDATE sit_stat set sit_status = ${button_id} where id = " + button_id`
-                console.log(sql);
-                connection.query(sql, (error, results, fields) => {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log(results);
-                    }
-                });
+                if (button_id == "퇴실") {
+                    console.log('퇴실 처리 구현 요망');
+                } else {
+                    var sql = "UPDATE sit_stat set sit_status = " + button_id + " where id = " + button_id;
+                    //var sql = `UPDATE sit_stat set sit_status = ${button_id} where id = " + button_id`
+                    console.log(sql);
+                    connection.query(sql, (error, results, fields) => {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log(results);
+                        }
+                    });
+                }
             }
         });
     });

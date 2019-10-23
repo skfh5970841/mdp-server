@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap&subset=korean');
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+.top {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #000;
+    margin: 0px;
+    background-color: #000000;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0px;
+    border: 0px;
+}
+
+.head {
+    border-bottom: 3px solid #CCCCCC;
+    background-color: #CCCCCC;
+}
+
+.logout {
+    margin-top: 6px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #FF00FF;
+    width: 30%;
+    border: 0;
+    padding: 0px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.form {
+    position: relative;
+    /*
+	 *우선순위
+	 z-index: 1;
+	*/
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    display: none;
+}
+
+input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+A:link {
+    text-decoration: none;
+    color: #646464;
+}
+
+A:visited {
+    text-decoration: none;
+    color: #646464;
+}
+
+A:active {
+    text-decoration: none;
+    color: #646464;
+}
+
+A:hover {
+    text-decoration: none;
+    color: #646464;
+}

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="../public/js/client.js">
+    <link rel="stylesheet" type="text/css" href="/css/munhak.css">
     <style>
         input[type=button] {
             height: 40px;
@@ -17,13 +19,15 @@
         var sit_data;
         var socket = io();
         socket.on('sit_data', function(data) {
-            var i;
+            let tmp = "<table border='1' bordercolor='black' width ='300' height='300' align = 'center'><th>자리 번호</th> <th>자리 상태</th> <th>사용자 id</th>";
             for (i = 0; i < data.length; i++) {
-                sit_data += data[i].id + ' ' + data[i].sit_status + ' ' + data[i].sit_user + '\n';
+                tmp += `<tr> <td>${i}</td> <td>${data[i].sit_status} </td> <td> ${data[i].sit_user}</td> </tr>`;
             }
-            document.getElementById("table").innerText = sit_data.replace('undefined', '').replace('/null/gi', '');
+            tmp += "</table>"
+            tmp = tmp.toString();
+            console.log(typeof(tmp));
+            document.getElementById("table").innerHTML = tmp.replace('undefined', '');
         });
-
         //socket.emit('send_status', send_data());
         function send_data(button_id) {
             socket.emit('send_status', button_id);
@@ -35,28 +39,7 @@
 
 <body>
     <div id="table">
-        <!--<table border="1" width="200" height="200">
-            <tr>
-                <th>면학실 자리</th>
-                <th>상태</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td id="sit1"></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td id="sit2"></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td id="sit3"></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td id="sit4"></td>
-            </tr>
-        </table>-->
+
     </div>
     <br>
     <h3>자리 예약하기</h3>
@@ -66,6 +49,7 @@
         <input type="button" id="3" onclick="send_data(this.id)" placeholder="3번자리">
         <input type="button" id="4" onclick="send_data(this.id)" placeholder="4번자리">
     </div>
+    <button id="퇴실" onclick="send_data(this.id)" placeholder="퇴실">reset</button>
 </body>
 
 </html>
