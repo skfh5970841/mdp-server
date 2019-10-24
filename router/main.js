@@ -91,7 +91,6 @@ module.exports = function(app, io) {
      */
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
-        var session = req.session;
         var i;
         var tagdata;
         var sql;
@@ -101,7 +100,7 @@ module.exports = function(app, io) {
         }
         tagdata = ('"' + tagdata + '"').replace('undefined', '');
         //sql = `SELECT * FROM student WHERE NFCNumber = ${tagdata}`;
-        console.log(sql);
+        console.log(tagdata);
         connection.query(`SELECT * FROM student WHERE NFCNumber = ${tagdata}`, (error, results, fields) => {
             console.log('this is query');
             console.log(results);
@@ -112,8 +111,6 @@ module.exports = function(app, io) {
                     "failed": "error ocurred"
                 });
             } else {
-                //res.send(tag);
-                // console.log('The solution is: ', results);
                 if (results.length > 0) {
                     console.log('정상처리 되었습니다.');
                     res.send('OK');
