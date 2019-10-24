@@ -11,15 +11,9 @@ var session = require('express-session');
 var MYSQLStore = require('express-mysql-session')(session);
 var sessionStore = new MYSQLStore(config);
 var fs = require('fs');
+var os = require('os');
 
-var
-    exists = fs.exists || path.exists,
-    tmpDir = os.tmpDir || _getTMPDir,
-    tmpDir = os.tmpdir || os.tmpDir || _getTMPDir,
-    _TMP = tmpDir(),
-    randomChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz",
-    randomCharsLength = randomChars.length;
-
+os.tmpDir = os.tmpdir;
 app.use(bodyParser.json());
 app.use(session({
     secret: 'zenbusine!!!!!',
