@@ -82,7 +82,6 @@ app.post('/process/nfc', function(req, res){
 });
 */
 
-
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname + '/view');
@@ -91,15 +90,5 @@ var server = app.listen(process.env.PORT || 8888, function() {
     console.log("Express server has started on port 8888");
 });
 
-
-
 const io = require('socket.io')(server);
-//proccessing
-/*io.on('connection', (socket) => {
-    socket.on('select_data', (data) => {
-        console.log('Message from Client: ' + data);
-    });
-});*/
-//
-
 var router = require('./router/main')(app, io);
