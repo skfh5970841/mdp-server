@@ -10,7 +10,6 @@
         var i;
         var tmp;
         var socket = io();
-
         socket.on('data', function(data) {
             //console.log(data);
 
@@ -59,6 +58,12 @@
                 x.style.display = "block"
             }
         }
+
+        function confirm_password() {
+            if (document.getElementById("password").value !== document.getElementById("confirm_password")) {
+                alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            }
+        }
     </script>
 
 </head>
@@ -94,12 +99,12 @@
     <div id="toggle1" class="form">
         <form action="/adduser" method=post>
             <input type="text" name="username" placeholder="이름" />
-            <input type="text" name="Stuid" placeholder="id for login">
+            <input type="text" name="StuId" placeholder="id for login">
             <!--<input type="text" name="Id" placeholder="id">-->
-            <input type="password" name="password" placeholder="password" />
-            <input type="password" name="confirm_password" placeholder="confirm password" />
-            <input type="text" name="email" placeholder="email address" />
-            <button>create</button>
+            <input id="password" type="password" name="password" placeholder="password" />
+            <input id="confirm_password" type="password" name="confirm_password" placeholder="confirm password" />
+            <input type="text" name="room_number" placeholder="room_number" />
+            <button onclick="confirm_password()">create</button>
         </form>
     </div>
     <div id="toggle2" class="form">
@@ -128,7 +133,6 @@
         <input class="button" type="button" style="color: black" value="학생 목록" id="b4" onclick="iodata()">
         <div>
             <p id="list">
-
             </p>
         </div>
     </div>

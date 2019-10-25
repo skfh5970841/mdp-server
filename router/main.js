@@ -122,20 +122,23 @@ module.exports = function(app, io) {
     app.post('/adduser', (req, res) => {
         var name = req.body.username;
         //var id = req.body.Id;
-        var Stuid = req.body.Stuid;
+        var StuId = req.body.StuId;
         var pw = req.body.password;
         var cpw = req.body.confirm_password;
-        var email = req.body.email;
-
+        var room_number = req.body.room_number;
+        var sql;
         //쿼리문 입력하기
-        if (name && id && pw && cpw && email) {
-            if (pw !== cpw)
-                res.send('비밀번호와 확인이 일치하지 않습니다');
-            console.log(name + ' ' + id + ' ' + pw + ' ' + cpw + ' ' + email + '모든 정보가 입력되었습니다.');
-            connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + Stuid + '", "' + pw + '", "' + name + '")',
+        //test ver
+        name = '"' + name + '"';
+        StuId = '"' + StuId + '"';
+        pw = '"' + pw + '"';
+        room_number = '"' + room_number + '"';
+        if (name && pw && cpw && room_number) {
+            sql = `INSERT INTO student (이름, StuId, StuPw, 기숙사방) VALUES(${name}, ${StuId}, ${pw}, ${room_number})`;
+            connection.query( /*'INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + Stuid + '", "' + pw + '", "' + name + '")'*/ sql,
                 (error, results, fields) => {
                     if (error) {
-                        //console.log(error);
+                        console.log(error);
                         res.send({
                             "code": 400,
                             "failed": "error ocurred"
@@ -162,7 +165,6 @@ module.exports = function(app, io) {
                         "failed": "error ocurred"
                     });
                 } else {
-                    //console.log(results);
                     io.emit('data', results);
                 }
             });
@@ -183,8 +185,6 @@ module.exports = function(app, io) {
         });
 
         socket.on('send_status', (button_id) => {
-            //console.log(button_id);
-            //update sit_stat set sit_status 1 where id = 1;
             if (button_id) {
                 if (button_id == "퇴실") {
                     console.log('퇴실 처리 구현 요망');
