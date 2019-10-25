@@ -30,6 +30,8 @@
         });
         //socket.emit('send_status', send_data());
         function send_data(button_id) {
+            alert(button_id + "번이 선택되었습니다");
+
             socket.emit('send_status', button_id);
         }
     </script>
