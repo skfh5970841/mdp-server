@@ -1,12 +1,4 @@
 module.exports = function(app, io) {
-    //
-    //proccessing
-    /*io.on('connection', (socket) => {
-        socket.on('select_data', (data) => {
-            console.log('Message from Client: ' + data);
-        });
-    });*/
-
     var mysql = require('mysql');
     var config = require('../config');
     var connection = mysql.createConnection(config);
@@ -83,12 +75,7 @@ module.exports = function(app, io) {
                 }
             })
     });
-    /*
-    app.post('/process/nfc',function(req,res){
-        var msg=req.body.msg;
-        console.log("python: " + msg);
-    });
-     */
+
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
         var i;
@@ -120,11 +107,6 @@ module.exports = function(app, io) {
             }
         })
     });
-    /*
-        app.get('/process/nfc', (req, res) => {
-            console.log('process/nfc get');
-            res.send(req.session.tag);
-        });*/
 
     app.post('/deleteuser', (req, res) => {
         var name = req.body.Stuid;
@@ -139,13 +121,16 @@ module.exports = function(app, io) {
 
     app.post('/adduser', (req, res) => {
         var name = req.body.username;
-        var id = req.body.Id;
+        //var id = req.body.Id;
         var Stuid = req.body.Stuid;
         var pw = req.body.password;
         var cpw = req.body.confirm_password;
         var email = req.body.email;
+
         //쿼리문 입력하기
         if (name && id && pw && cpw && email) {
+            if (pw !== cpw)
+                res.send('비밀번호와 확인이 일치하지 않습니다');
             console.log(name + ' ' + id + ' ' + pw + ' ' + cpw + ' ' + email + '모든 정보가 입력되었습니다.');
             connection.query('INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + Stuid + '", "' + pw + '", "' + name + '")',
                 (error, results, fields) => {
