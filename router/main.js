@@ -127,15 +127,14 @@ module.exports = function(app, io) {
         var cpw = req.body.confirm_password;
         var room_number = req.body.room_number;
         var sql;
-        //쿼리문 입력하기
-        //test ver
+
         name = '"' + name + '"';
         StuId = '"' + StuId + '"';
         pw = '"' + pw + '"';
         room_number = '"' + room_number + '"';
         if (name && pw && cpw && room_number) {
             sql = `INSERT INTO student (이름, StuId, StuPw, 기숙사방) VALUES(${name}, ${StuId}, ${pw}, ${room_number})`;
-            connection.query( /*'INSERT INTO student (id, StuId, StuPw, 이름) VALUES ("' + id + '", "' + Stuid + '", "' + pw + '", "' + name + '")'*/ sql,
+            connection.query(sql,
                 (error, results, fields) => {
                     if (error) {
                         console.log(error);
