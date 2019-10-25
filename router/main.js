@@ -141,7 +141,6 @@ module.exports = function(app, io) {
                             "failed": "error ocurred"
                         });
                     } else {
-                        console.log()
                         res.redirect('/admin');
                     }
 
