@@ -102,7 +102,8 @@ module.exports = function(app, io) {
                     console.log('정상처리 되었습니다.');
                     res.send('OK');
                 } else {
-                    res.send('unknowned data');
+                    res.send('OK');
+                    //res.send('unknowned data');
                 }
             }
         })
@@ -202,7 +203,6 @@ module.exports = function(app, io) {
             }
         });
     });
-
 
     app.get('/admin', (req, res) => {
         res.render('admin.ejs');
