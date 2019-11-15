@@ -31,6 +31,9 @@ body {
 }
 
 .button {
+    display: flex;
+    flex-direction: row;
+    margin-right: 5px;
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -38,12 +41,16 @@ body {
     width: 30%;
     border: 0;
     padding: 0px;
-    color: #FFFFFF;
+    color: crimson;
     font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
     cursor: pointer;
     margin-bottom: 20px;
+}
+
+input[type=button] {
+    height: 40px;
+    width: 100px;
+    background-color: cyan;
 }
 
 .form {

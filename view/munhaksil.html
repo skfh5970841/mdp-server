@@ -8,18 +8,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="../public/js/client.js">
     <link rel="stylesheet" type="text/css" href="/css/munhak.css">
-    <style>
-        input[type=button] {
-            height: 40px;
-            width: 100px;
-        }
-    </style>
+
     <script>
         var flag;
         var sit_data;
         var socket = io();
         socket.on('sit_data', function(data) {
-            let tmp = "<table border='1' bordercolor='black' width ='300' height='300' align = 'center'><th>자리 번호</th> <th>자리 상태</th> <th>사용자 id</th>";
+            let tmp = "<table border='1' id='table' bordercolor='black' width ='300' height='300' align = 'center'><th>자리 번호</th> <th>자리 상태</th> <th>사용자 id</th>";
             for (i = 0; i < data.length; i++) {
                 tmp += `<tr> <td>${i}</td> <td>${data[i].sit_status} </td> <td> ${data[i].sit_user}</td> </tr>`;
             }
@@ -35,8 +30,11 @@
             socket.emit('send_status', button_id);
         }
     </script>
-    <title>면학 자리 관리 시스템</title>
+    <style>
 
+    </style>
+
+    <title>면학 자리 관리 시스템</title>
 </head>
 
 <body>
