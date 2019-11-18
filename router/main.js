@@ -51,15 +51,13 @@ module.exports = function(app, io) {
                     })
                 } else {
                     if (results.length > 0) {
-                        //console.log(results[0].StuPw);
-
                         if (results[0].StuPw == pw) {
                             session.user = {
                                 "Id": results[0].StuId,
                                 "age": 25,
                             }
+                            connection.query(`update login_inform set con_user_id=${"'" + results[0].StuId + "'"} where id = 1`);
                             res.redirect('/');
-
                         } else {
                             res.send({
                                 "code": 204,
@@ -185,36 +183,22 @@ module.exports = function(app, io) {
         });
 
         socket.on('enter', (button_id) => {
-            sql = `UPDATE sit_stat set sit_status = ${1} where id = ${button_id}`
-            console.log(sql);
-            connection.query(sql);
-            //socket.emit('confirm_end', "confirm_enter");
+            connection.query('select * from login_inform', (error, results, fields) => {
+                sql = `UPDATE sit_stat set sit_status = ${1}, sit_user = ${"'"+ results[0].con_user_id + "'"} where id = ${button_id}`;
+                console.log(sql);
+                connection.query(sql);
+                //socket.emit('confirm_end', "confirm_enter");
+            });
+
         });
 
         socket.on('exit', (button_id) => {
+
             sql = `UPDATE sit_stat set sit_status = ${0} where id = ${button_id}`;
             console.log(sql);
             connection.query(sql);
             //socket.emit('confirm_end', "confirm_exit");
         });
-        /*socket.on('send_status', (button_id) => {
-            if (button_id) {
-                if (button_id == "퇴실") {
-                    console.log('퇴실 처리 구현 요망');
-                } else {
-                    var sql = "UPDATE sit_stat set sit_status = " + button_id + " where id = " + button_id;
-                    //var sql = `UPDATE sit_stat set sit_status = ${button_id} where id = " + button_id`
-                    console.log(sql);
-                    connection.query(sql, (error, results, fields) => {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log(results);
-                        }
-                    });
-                }
-            }
-        });*/
 
     });
 
