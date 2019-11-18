@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="/css/ex.css">
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var x;
         var i;
         var tmp;
         var socket = io();
+
         socket.on('data', function(data) {
             //console.log(data);
 
@@ -26,6 +26,7 @@
             tmp = tmp.toString();
             console.log(typeof(tmp));
             document.getElementById("list").innerHTML = tmp.replace('undefined', '');
+
         });
 
         function select_class() {
@@ -37,25 +38,31 @@
         }
 
         function toggle(id) {
-            //x = document.getElementById("toggle1"); 
+            x = document.getElementById("toggle1");
+            y = document.getElementById("toggle2");
+            z = document.getElementById("toggle3");
+            b = document.getElementById("toggle4");
 
-            if (id === 'b1') {
-                x = document.getElementById("toggle1");
-            }
-            if (id === 'b2') {
-                x = document.getElementById("toggle2");
-            }
-            if (id === 'b3') {
-                x = document.getElementById("toggle3");
-            }
-            if (id === 'b4') {
-                x = document.getElementById("toggle4");
-            }
-
-            if (x.style.display === "block") {
-                x.style.display = "none"
-            } else {
+            if ('b1' === id) {
                 x.style.display = "block"
+                y.style.display = "none"
+                z.style.display = "none"
+                b.style.display = "none"
+            } else if ('b2' === id) {
+                y.style.display = "block"
+                x.style.display = "none"
+                z.style.display = "none"
+                b.style.display = "none"
+            } else if ('b3' === id) {
+                z.style.display = "block"
+                y.style.display = "none"
+                x.style.display = "none"
+                b.style.display = "none"
+            } else if ('b4' === id) {
+                b.style.display = "block"
+                y.style.display = "none"
+                z.style.display = "none"
+                x.style.display = "none"
             }
         }
 

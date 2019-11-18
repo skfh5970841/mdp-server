@@ -14,7 +14,7 @@
         var sit_data;
         var socket = io();
         socket.on('sit_data', function(data) {
-            let tmp = "<table border='1' id='table' bordercolor='black' width ='300' height='300' align = 'center'><th>자리 번호</th> <th>자리 상태</th> <th>사용자 id</th>";
+            let tmp = "<table border='1' id='table' bordercolor='black' width ='300' height='300'><th>자리 번호</th> <th>자리 상태</th> <th>사용자 id</th>";
             for (i = 0; i < data.length; i++) {
                 tmp += `<tr> <td>${i}</td> <td>${data[i].sit_status} </td> <td> ${data[i].sit_user}</td> </tr>`;
             }
@@ -24,10 +24,33 @@
             document.getElementById("table").innerHTML = tmp.replace('undefined', '');
         });
         //socket.emit('send_status', send_data());
-        function send_data(button_id) {
+        /*function send_data(button_id) {
             alert(button_id + "번이 선택되었습니다");
 
             socket.emit('send_status', button_id);
+        }
+
+        function reset() {
+
+        }*/
+        function toggle(id) {
+            x = document.getElementsByClassName("t1");
+            y = document.getElementsByClassName("t2");
+            if ('b1' === id) {
+                x.style.display = "block"
+                y.style.display = "none"
+            } else if ('b2' === id) {
+                y.style.display = "block"
+                x.style.display = "none"
+            }
+        }
+
+        function enter(id) {
+            socket.emit('enter', id);
+        }
+
+        function exit(id) {
+            socket.emit('exit', id);
         }
     </script>
     <style>
@@ -42,14 +65,27 @@
 
     </div>
     <br>
-    <h3>자리 예약하기</h3>
-    <div id="buttons">
-        <input type="button" id="1" onclick="send_data(this.id)" placeholder="1번자리">
-        <input type="button" id="2" onclick="send_data(this.id)" placeholder="2번자리">
-        <input type="button" id="3" onclick="send_data(this.id)" placeholder="3번자리">
-        <input type="button" id="4" onclick="send_data(this.id)" placeholder="4번자리">
+
+    <div id="jb-container">
+        <div id="flex">
+            <button id="b1" onclick="toggle(this.id)" style="width: 5vw;height: 2vh;">입실</button>
+            <button id="b2" onclick="toggle(this.id)" style="width: 5vw;height: 2vh;">퇴실</button>
+        </div>
+
+        <div id="buttons" class="t1">
+            <button id="1" onclick="enter(this.id)">1번자리</button>
+            <button id="2" onclick="enter(this.id)">2번자리</button>
+            <button id="3" onclick="enter(this.id)">3번자리</button>
+            <button id="4" onclick="enter(this.id)">4번자리</button>
+        </div>
+
+        <div id="buttons" class="t2">
+            <button id="1" onclick="exit(this.id)">1번자리</button>
+            <button id="2" onclick="exit(this.id)">2번자리</button>
+            <button id="3" onclick="exit(this.id)">3번자리</button>
+            <button id="4" onclick="exit(this.id)">4번자리</button>
+        </div>
     </div>
-    <button id="퇴실" onclick="send_data(this.id)" placeholder="퇴실">reset</button>
 </body>
 
 </html>

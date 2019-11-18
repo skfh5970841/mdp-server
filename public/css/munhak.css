@@ -30,13 +30,18 @@ body {
     padding: 0;
 }
 
-.button {
+#flex {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2vh;
+}
+
+#buttons {
     display: flex;
     flex-direction: row;
     margin-right: 5px;
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
-    outline: 0;
     background: #FF00FF;
     width: 30%;
     border: 0;
@@ -47,11 +52,12 @@ body {
     margin-bottom: 20px;
 }
 
-input[type=button] {
+
+/*button {
     height: 40px;
     width: 100px;
     background-color: cyan;
-}
+}*/
 
 .form {
     position: relative;

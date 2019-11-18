@@ -103,7 +103,6 @@ module.exports = function(app, io) {
                     res.send('OK');
                 } else {
                     res.send('OK');
-                    //res.send('unknowned data');
                 }
             }
         })
@@ -156,6 +155,7 @@ module.exports = function(app, io) {
 
     io.on('connection', (socket) => {
         console.log('io connected');
+        var sql;
         connection.query('SELECT * FROM student',
             (error, results, fields) => {
                 if (error) {
@@ -184,7 +184,20 @@ module.exports = function(app, io) {
             }
         });
 
-        socket.on('send_status', (button_id) => {
+        socket.on('enter', (button_id) => {
+            sql = `UPDATE sit_stat set sit_status = ${1} where id = ${button_id}`
+            console.log(sql);
+            connection.query(sql);
+            //socket.emit('confirm_end', "confirm_enter");
+        });
+
+        socket.on('exit', (button_id) => {
+            sql = `UPDATE sit_stat set sit_status = ${0} where id = ${button_id}`;
+            console.log(sql);
+            connection.query(sql);
+            //socket.emit('confirm_end', "confirm_exit");
+        });
+        /*socket.on('send_status', (button_id) => {
             if (button_id) {
                 if (button_id == "퇴실") {
                     console.log('퇴실 처리 구현 요망');
@@ -201,7 +214,8 @@ module.exports = function(app, io) {
                     });
                 }
             }
-        });
+        });*/
+
     });
 
     app.get('/admin', (req, res) => {
