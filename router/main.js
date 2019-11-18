@@ -151,6 +151,16 @@ module.exports = function(app, io) {
         }
     });
 
+    app.post('/munhak', (req, res) => {
+
+        connection.query('select * from sit_stat', (error, results, field) => {
+            for (var i = 0; i < results.length; i++) {
+
+            }
+            //res.send(results);
+        })
+    });
+
     io.on('connection', (socket) => {
         console.log('io connected');
         var sql;
