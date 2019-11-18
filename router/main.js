@@ -152,12 +152,13 @@ module.exports = function(app, io) {
     });
 
     app.post('/munhak', (req, res) => {
-
+        var data = new Array();
+        /*= new Array(Array(), Array());*/
         connection.query('select * from sit_stat', (error, results, field) => {
             for (var i = 0; i < results.length; i++) {
-
+                data[i] = results[i].sit_status;
             }
-            //res.send(results);
+            res.send(data);
         })
     });
 
@@ -204,7 +205,7 @@ module.exports = function(app, io) {
 
         socket.on('exit', (button_id) => {
 
-            sql = `UPDATE sit_stat set sit_status = ${0} where id = ${button_id}`;
+            sql = `UPDATE sit_stat set sit_status = ${0}, sit_user = ${'0'} where id = ${button_id}`;
             console.log(sql);
             connection.query(sql);
             //socket.emit('confirm_end', "confirm_exit");

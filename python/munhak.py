@@ -14,8 +14,8 @@ url = "http://localhost:8888/munhak"
 while True : 
     response = requests.post(url)
     print(response.text)
-
     
+
 
 
 
