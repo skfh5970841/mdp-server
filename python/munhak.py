@@ -14,19 +14,19 @@ while True :
     print(response.text)
     if response.text[0] == 1 : 
         GPIO.output(4, 1)
-    else
+    else :
         GPIO.output(4, 0)
     if response.text[1] == 1 :
         GPIO.output(5, 1)
-    else
+    else :
         GPIO.output(5, 0)
     if response.text[2] == 1 :
         GPIO.output(6, 1)
-    else
+    else :
         GPIO.output(6, 0)
     if response.text[3] == 1 :
         GPIO.output(10, 1)
-    else
+    else :
         GPIO.output(10, 0)
 
 
