@@ -8,6 +8,7 @@ GPIO.setup(5, GPIO.OUT)
 GPIO.setup(6, GPIO.OUT)
 GPIO.setup(10, GPIO.OUT)
 url = "http://localhost:8888/munhak"
+#url = "http://zenbusine.herokuapp.com/munhak"
 
 while True : 
     response = requests.post(url)
@@ -28,6 +29,7 @@ while True :
         GPIO.output(10, 1)
     else :
         GPIO.output(10, 0)
+    time.sleep(0.5)
 
 
 
