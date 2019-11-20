@@ -29,19 +29,45 @@ body {
     margin-bottom: 2vh;
 }
 
+
+/*
 #buttons {
     display: flex;
     flex-direction: row;
     margin-right: 5px;
     font-family: "Roboto", sans-serif;
     background: #FF00FF;
-    width: 30%;
+    width: 20vw;
     border: 0;
     padding: 0px;
-    color: crimson;
     font-size: 14px;
     cursor: pointer;
     margin-bottom: 20px;
+}
+*/
+
+#jb-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90vw;
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #bcbcbc;
+}
+
+#jb-header {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #bcbcbc;
+}
+
+#jb-sidebar-right {
+    width: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    float: right;
+    border: 1px solid #bcbcbc;
 }
 
 
@@ -80,7 +106,6 @@ input {
 
 button {
     font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
     outline: 0;
     background: #4CAF50;
     width: 100%;
@@ -91,6 +116,21 @@ button {
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
+}
+
+.t1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.t2 {
+    display: flex;
+    flex-direction: column;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
 }
 
 A:link {
