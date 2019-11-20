@@ -12,7 +12,6 @@ url = "http://localhost:8888/munhak"
 
 while True : 
     response = requests.post(url)
-    print(response.text)
     if response.text[0] == 1 : 
         GPIO.output(4, 1)
     else :

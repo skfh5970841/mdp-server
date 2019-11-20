@@ -14,7 +14,6 @@ module.exports = function(app, io) {
             
         });
     }
-
     getData()
     .then(function(data){
         
@@ -207,7 +206,6 @@ module.exports = function(app, io) {
             console.log(sql);
             connection.query(sql);
         });
-
     });
 
     app.get('/admin', (req, res) => {

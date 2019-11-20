@@ -19,7 +19,6 @@ while 1 :
     print(card_data)
     #headers = {"Content-type":"application/x-www-form-urlencoded"}
     response = requests.post(url, card_data)
-
     print(response.text)
 
     if response.text == 'OK' : 
