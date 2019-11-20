@@ -202,7 +202,7 @@ module.exports = function(app, io) {
         });
 
         socket.on('exit', (button_id) => {
-            sql = `UPDATE sit_stat set sit_status = ${0}, sit_user = ${'0'} where id = ${button_id}`;
+            sql = `UPDATE sit_stat set sit_status = ${0}, sit_user = ${'-'} where id = ${button_id}`;
             console.log(sql);
             connection.query(sql);
         });
