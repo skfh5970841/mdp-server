@@ -14,9 +14,14 @@
         var sit_data;
         var socket = io();
         socket.on('sit_data', function(data) {
-            let tmp = "<table border='1' id='table' bordercolor='black' width ='300' height='300'><th>자리 번호</th> <th>자리 상태</th> <th>사용자 id</th>";
+            let tmp = "<table border='1' id='table' bordercolor='black' width ='300' height='300'> <th style='height:4vh'>자리 번호</th> <th style='height:4vh'>자리 상태</th> <th style='height:4vh'>사용자 id</th>";
+            var sit_user;
             for (i = 0; i < data.length; i++) {
-                tmp += `<tr> <td>${i}</td> <td>${data[i].sit_status} </td> <td> ${data[i].sit_user}</td> </tr>`;
+                if (data[i].sit_user == '0')
+                    sit_user = '-';
+                else
+                    sit_user = data[i].sit_user;
+                tmp += `<tr> <td style="width:3vw"> <center> ${i} </center> </td> <td> <center> ${data[i].sit_status} </center></td> <td> <center> ${sit_user} </center> </td> </tr>`;
             }
             tmp += "</table>"
             tmp = tmp.toString();
@@ -65,7 +70,9 @@
     <div id="jb-header">
         <h1>면학 예약 현황</h1>
     </div>
-
+    <div style="float: left;margin-left: 3vw;margin-right: 0;">
+        <h5><a href="/admin">admin page</a></h5>
+    </div>
     <div id="jb-container">
 
         <div id="table">

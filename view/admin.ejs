@@ -12,7 +12,6 @@
 
         socket.on('data', function(data) {
             //console.log(data);
-
             /* for (i = 0; i < data.length; i++) {
                  tmp += data[i].id + " 이름 : " + data[i].이름 + " " + data[i].StuId + "<br>";
                  //document.getElementById("list").innerText = data[i].이름;
@@ -40,28 +39,21 @@
         function toggle(id) {
             x = document.getElementById("toggle1");
             y = document.getElementById("toggle2");
-            z = document.getElementById("toggle3");
-            b = document.getElementById("toggle4");
+            b = document.getElementById("toggle3");
 
-            if ('b1' === id) {
+            if (id === 'b1') {
                 x.style.display = "block"
                 y.style.display = "none"
-                z.style.display = "none"
                 b.style.display = "none"
-            } else if ('b2' === id) {
+            }
+            if (id === 'b2') {
                 y.style.display = "block"
                 x.style.display = "none"
-                z.style.display = "none"
                 b.style.display = "none"
-            } else if ('b3' === id) {
-                z.style.display = "block"
-                y.style.display = "none"
-                x.style.display = "none"
-                b.style.display = "none"
-            } else if ('b4' === id) {
+            }
+            if (id === 'b3') {
                 b.style.display = "block"
                 y.style.display = "none"
-                z.style.display = "none"
                 x.style.display = "none"
             }
         }
@@ -78,7 +70,9 @@
 <body>
     <!--top-->
     <div class="top">
-        <h3 class="logout"><a href="/logout" style="color: white">Logout</a></h3>
+        <h3><a href="/logout" style="color: white;margin-right: 2vw;">Logout</a></h3>
+        <h3><a href="/munhak" style="color: white;margin-right: 2vw;">munhak</a></h3>
+        <h3><a href="/" style="color: white;">userpage</a></h3>
     </div>
 
     <div class="imgtext">
@@ -96,8 +90,7 @@
             <center>
                 <input class="button" type="button" value="계정 추가하기" id="b1" onclick="toggle(this.id)">
                 <input class="button" type="button" value="계정 삭제하기" id="b2" onclick="toggle(this.id)">
-                <input class="button" type="button" value="카드 정보/관리" id="b3" onclick="toggle(this.id)">
-                <input class="button" type="button" value="학생 목록" id="b4" onclick="toggle(this.id)">
+                <input class="button" type="button" value="학생 목록" id="b3" onclick="toggle(this.id)">
             </center>
         </div>
     </div>
@@ -136,7 +129,7 @@
         </h4>
     </div>-->
 
-    <div id="toggle4" class="form">
+    <div id="toggle3" class="form">
         <input class="button" type="button" style="color: black" value="학생 목록" id="b4" onclick="iodata()">
         <div>
             <p id="list">
