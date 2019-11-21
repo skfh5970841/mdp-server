@@ -45,7 +45,7 @@
         
         #button {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             width: 580px;
             height: 10vh;
             text-align: center;
@@ -57,25 +57,12 @@
 
 <body>
     <div id='jb-container'>
-
         <div id="jb-content">
-
-            작성자 :
-            <%= userid %> <br>
-                <div id="board_name">
-                    <%= board_name %> <br>
-                </div>
-                <div id="board">
-                    <%= board %> <br>
-                </div>
-                <div>
-                    <%= datetime %> <br>
-                </div>
-                <div id="button">
-                    <a href="/deleteboard/<%= id %>/<%= userid %>"><button>삭제하기</button></a>
-                    <a href="/modifyboard/<%= id %>/<%= userid %>"><button>수정하기</button></a>
-                    <a href="/"><button>메인페이지</button></a>
-                </div>
+            <form action="/modifyboard" method=post>
+                <input id="board_name" type="text" name="board_name" />
+                <input id="board" type="text" name="board" />
+                <button>create</button>
+            </form>
         </div>
     </div>
 

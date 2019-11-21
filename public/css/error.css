@@ -1,0 +1,22 @@
+
+#jemok {
+    font-size: 100px;
+    border: 10px solid red;
+    
+ }
+body{
+    text-align: center  ;
+    vertical-align: middle;
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+
+}
+a {
+    font-size: 20px;
+    
+}

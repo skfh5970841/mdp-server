@@ -11,12 +11,6 @@
         var socket = io();
 
         socket.on('data', function(data) {
-            //console.log(data);
-            /* for (i = 0; i < data.length; i++) {
-                 tmp += data[i].id + " 이름 : " + data[i].이름 + " " + data[i].StuId + "<br>";
-                 //document.getElementById("list").innerText = data[i].이름;
-                 //document.getElementById("list").innerHTML = "<br>";
-             }*/
             tmp = "<table border='1' bordercolor='blue' width ='300' height='300' align = 'center'><th>번호</th> <th>이름</th> <th>학생 id</th>";
             for (i = 0; i < data.length; i++) {
                 tmp += "<tr> <td>" + data[i].id + "</td> <td>" + data[i].이름 + "</td> <td>" + data[i].StuId + "</td> </tr>";

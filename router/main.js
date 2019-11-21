@@ -19,7 +19,6 @@ module.exports = function(app, io) {
         
     })
     */
-
     app.get('/', (req, res) => {
         if (req.session.user) {
             res.render('user.ejs', {
@@ -78,10 +77,18 @@ module.exports = function(app, io) {
     });
 
     app.get('/board/:id', (req, res) => {
-        console.log('asdfla;ksjdf');
         connection.query(`select * from board where id = ${req.params.id}`, (error, results, field) => {
             var jsondata = JSON.stringify(results);
             var padata = JSON.parse(jsondata);
+            var session = req.session;
+
+            session.board_inform = {
+                "id": req.params.id,
+                /*"userid": padata[0].userid,
+                "board_name": padata[0].board_name,
+                "board": padata[0].board,
+                "datetime": padata[0].datetime*/
+            }
 
             res.render('board_confirm.ejs', {
                 id: req.params.id,
@@ -124,6 +131,23 @@ module.exports = function(app, io) {
             }
         });
     });
+
+    app.get('/modifyboard/:id/:userid', (req, res) => {
+        res.render('modify_board.ejs');
+    });
+
+    app.post('/modifyboard', (req, res) => {
+        var board_name = req.body.board_name;
+        var board = req.body.board;
+        var sql = `UPDATE board set board_name = ${"'" +board_name+"'"}, board = ${"'" +board_name+"'"} where id = ${req.session.board_inform.id}`;
+
+        console.log(req.session.board_inform.id);
+
+        connection.query(sql);
+        res.redirect(`/board/${req.session.board_inform.id}`);
+    });
+
+
 
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
