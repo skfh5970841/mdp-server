@@ -94,10 +94,17 @@ module.exports = function(app, io) {
         })
     });
 
-    app.get('/deleteboard/:id', (req, res) => {
+    app.get('/error', (req, res) => {
+        res.render('error.html');
+    });
+
+    app.get('/deleteboard/:id/:userid', (req, res) => {
         var sql = `delete from board where id = ${req.params.id}`
-        connection.query(sql);
-        res.redirect('/admin');
+        if (req.params.userid === req.session.user.Id) {
+            connection.query(sql);
+            res.redirect('/');
+        } else
+            res.redirect('/error');
     });
 
     app.post('/update_board', (req, res) => {
