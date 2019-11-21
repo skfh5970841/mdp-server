@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        /*.textbox {
+            width: "500px";
+            height: "500px";
+        }*/
+        
+        body{
+            background-color: gray;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+        var socket = io();
+
+
+        function write_board(){
+            /*socket.emit('board_data', (data)=>{
+
+            })*/
+        }
+    </script>
+    <title>글쓰기</title>
+</head>
+
+<body>
+    <div id="toggle1" class="form">
+        <form action="/update_board" method=post>
+            <input type="text" style="width:300px;" name="board_name" placeholder="제목" /> <br>
+            <input type="text" style="width:300px;height:200px;font-size:10px;" name="board"> <br>
+            <button>글쓰기</button>
+        </form>
+    </div>
+    <br>
+    <div>
+        <form action="/adduser" method=post>
+
+        </form>
+    </div>
+    <br>
+    <h4>made by skfh5970841</h4>
+</body>
+
+</html>

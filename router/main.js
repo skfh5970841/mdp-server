@@ -19,6 +19,7 @@ module.exports = function(app, io) {
         
     })
     */
+
     app.get('/', (req, res) => {
         if (req.session.user) {
             res.render('user.ejs', {
@@ -70,6 +71,51 @@ module.exports = function(app, io) {
                     }
                 }
             })
+    });
+
+    app.get('/write_board', (req, res) => {
+        res.render('write_board.html');
+    });
+
+    app.get('/board/:id', (req, res) => {
+        console.log('asdfla;ksjdf');
+        connection.query(`select * from board where id = ${req.params.id}`, (error, results, field) => {
+            var jsondata = JSON.stringify(results);
+            var padata = JSON.parse(jsondata);
+
+            res.render('board_confirm.ejs', {
+                id: req.params.id,
+                userid: padata[0].userid,
+                board_name: padata[0].board_name,
+                board: padata[0].board,
+                datetime: padata[0].datetime
+            });
+
+        })
+    });
+
+    app.get('/deleteboard/:id', (req, res) => {
+        var sql = `delete from board where id = ${req.params.id}`
+        connection.query(sql);
+        res.redirect('/admin');
+    });
+
+    app.post('/update_board', (req, res) => {
+        var board_name = '"' + req.body.board_name + '"';
+        var board = '"' + req.body.board + '"';
+        var username = '"' + req.session.user.Id + '"';
+
+        console.log(req.session.user.Id);
+        console.log(board_name);
+        console.log(board);
+        var sql = `insert into board (userid, board_name, board) values (${username},${board_name}, ${board})`;
+        connection.query(sql, (err, rows, field) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect('/');
+            }
+        });
     });
 
     app.post('/process/nfc', (req, res) => {
@@ -188,6 +234,21 @@ module.exports = function(app, io) {
                 sit_data = JSON.parse(JSON.stringify(results));
                 console.log(sit_data);
                 socket.emit('sit_data', sit_data);
+            }
+        });
+
+        connection.query('SELECT * FROM board', (error, results, fields) => {
+            var boardlist;
+            if (error) {
+                console.log(error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                });
+            } else {
+                boardlist = JSON.parse(JSON.stringify(results));
+                console.log(boardlist);
+                socket.emit('board_list', boardlist);
             }
         });
 

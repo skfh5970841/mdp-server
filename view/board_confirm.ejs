@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: gray;
+        }
+        
+        #jb-container {
+            width: 940px;
+            height: 60vh;
+            margin: 0px auto;
+            padding: 20px;
+            border: 1px solid rgb(32, 30, 30);
+        }
+        
+        #jb-content {
+            width: 580px;
+            height: 45vh;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgb(32, 30, 30);
+        }
+        
+        #board_name {
+            width: 580px;
+            height: 4vh;
+            border: 1px solid rgb(32, 30, 30);
+            margin-bottom: 5vh;
+        }
+        
+        #board {
+            width: 580px;
+            height: 30vh;
+            border: 1px solid rgb(32, 30, 30);
+            margin-bottom: 3vh;
+        }
+        
+        #button {
+            width: 580px;
+            height: 10vh;
+            text-align: center;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+
+<body>
+    <div id='jb-container'>
+        <div id="jb-content">
+            작성자 :
+            <%= userid %> <br>
+                <div id="board_name">
+                    <%= board_name %> <br>
+                </div>
+                <div id="board">
+                    <%= board %> <br>
+                </div>
+                <div>
+                    <%= datetime %> <br>
+                </div>
+                <div id="button">
+                    <a href="/deleteboard/<%= id %>"><button>이 계시물 삭제하기</button></a>
+                </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

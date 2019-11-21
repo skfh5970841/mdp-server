@@ -10,20 +10,58 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="/css/main.css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('board_list', (data) => {
+            console.log(data);
+            //console.log(data[12].id);
+
+            let tmp = "<table border='1' class='table' bordercolor='black' width ='80%' height='300' align = 'center'><th width='10%'>유저명</th> <th width='25%'>게시글 제목</th> <th>내용</th>";
+            for (i = 0; i < data.length; i++) {
+                tmp += `<tr onclick="location.href='/board/${data[data.length-i-1].id}'" style="cursor:pointer;"> <td>${data[data.length-i-1].userid}</td> <td>${data[data.length-i-1].board_name} </td> <td> ${data[data.length-i-1].board}</td> </tr>`;
+            }
+            tmp += "</table>"
+            tmp = tmp.toString();
+            console.log(tmp);
+
+            document.getElementById("table").innerHTML = tmp.replace('undefined', '');
+        });
+
+        function confirm(id) {
+            socket.emit('id', id);
+        }
+    </script>
 </head>
 
 <body class="is-preload">
     <!-- Header -->
+
     <header id="header">
         <a class="logo" href="/admin">admin page</a>
         <a class="logo" href="/logout">Logout</a>
+        <a class="logo" href="/munhak">munhak</a>
     </header>
-
     <!-- Heading -->
     <div id="heading">
-        <h1>Elements</h1>
+        <h1>User Page</h1>
     </div>
-
+    <div class="page">
+        <div>
+            <h3 style="margin-left: 3vh;">글 목록</h3>
+            <div id="table">
+            </div>
+        </div>
+        <button> <a href="/write_board">글쓰기</a></button>
+        <div id="board_list">
+        </div>
+        <!--<div id="toggle1" class="form">
+            검색용
+            <form action="/adduser" method=post>
+                <input type="text" name="username" placeholder="이름" />
+                <button onclick="search()">검색</button>
+            </form>-->
+    </div>
 </body>
 
 </html>
