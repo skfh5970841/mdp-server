@@ -77,6 +77,13 @@
         }
     </style>
     <script>
+        console.log('abcd');
+        var x, y;
+        x = "<%= board_name %>";
+        y = "<%= board %>"
+
+        document.getElementsByName("board_name").values = x;
+        document.getElementByName("board").values = y;
     </script>
 </head>
 

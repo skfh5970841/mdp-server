@@ -53,6 +53,7 @@ module.exports = function(app, io) {
                             session.user = {
                                 "Id": results[0].StuId,
                                 "admin": results[0].admin,
+                                "nid": results[0].id,
                             }
                             connection.query(`update login_inform set con_user_id=${"'" + results[0].StuId + "'"} where id = 1`);
                             res.redirect('/');
@@ -84,10 +85,10 @@ module.exports = function(app, io) {
 
             session.board_inform = {
                 "id": req.params.id,
-                /*"userid": padata[0].userid,
+                /*"userid": padata[0].userid,*/
                 "board_name": padata[0].board_name,
                 "board": padata[0].board,
-                "datetime": padata[0].datetime*/
+                /*"datetime": padata[0].datetime*/
             }
 
             res.render('board_confirm.ejs', {
@@ -133,7 +134,17 @@ module.exports = function(app, io) {
     });
 
     app.get('/modifyboard/:id/:userid', (req, res) => {
-        res.render('modify_board.ejs');
+        /*
+        {
+                id: req.params.id,
+                userid: padata[0].userid,
+                board_name: padata[0].board_name,
+                board: padata[0].board,
+                datetime: padata[0].datetime
+            }
+            req.session.board_inform
+        */
+        res.render('modify_board.ejs', { board_name: req.session.board_inform.board_name, board: req.session.board_inform.board });
     });
 
     app.post('/modifyboard', (req, res) => {
@@ -147,7 +158,46 @@ module.exports = function(app, io) {
         res.redirect(`/board/${req.session.board_inform.id}`);
     });
 
+    app.get('/chai', (req, res) => {
+        res.render('chai.ejs');
+    });
 
+    app.post('/chai', (req, res) => {
+        //var name = req.body.username;
+        //var id = req.body.Id;
+        var StuId = req.body.StuId;
+        var pw = req.body.password;
+        var cpw = req.body.confirm_password;
+        var room_number = req.body.room_number;
+        var sql;
+        var Id = req.session.user.Id;
+        //name = '"' + name + '"';
+        StuId = '"' + StuId + '"';
+        pw = '"' + pw + '"';
+        room_number = '"' + room_number + '"';
+
+        if (pw && cpw && room_number) {
+            sql = `UPDATE student set StuId = ${StuId}, StuPw = ${pw}, 기숙사방 = ${room_number} where id = ${req.session.user.nid}`;
+            //sql = `INSERT INTO student (이름, StuId, StuPw, 기숙사방) VALUES(${name}, ${StuId}, ${pw}, ${room_number})`;
+            connection.query(sql,
+                (error, results, fields) => {
+                    if (error) {
+                        console.log(error);
+                        res.send({
+                            "code": 400,
+                            "failed": "error ocurred"
+                        });
+                    } else {
+                        res.redirect('/');
+                    }
+
+                });
+        } else {
+            console.log('입력하지 않은 부분이 있습니다. 모두 입력하여 주세요');
+            res.redirect('/admin');
+        }
+
+    });
 
     app.post('/process/nfc', (req, res) => {
         var tag = req.body.NFCNumber;
