@@ -21,8 +21,6 @@ module.exports = function(app, io) {
     */
     app.get('/', (req, res) => {
         if (req.session.user) {
-            console.log(typeof(req.session.user));
-            console.log('it has req.session.user');
             res.render('user.ejs', {
                 Id: req.session.user.Id
             });
@@ -51,9 +49,10 @@ module.exports = function(app, io) {
                 } else {
                     if (results.length > 0) {
                         if (results[0].StuPw == pw) {
+                            console.log(results[0].admin);
                             session.user = {
                                 "Id": results[0].StuId,
-                                "age": 25,
+                                "admin": results[0].admin,
                             }
                             connection.query(`update login_inform set con_user_id=${"'" + results[0].StuId + "'"} where id = 1`);
                             res.redirect('/');
@@ -209,9 +208,16 @@ module.exports = function(app, io) {
     });
 
     app.get('/admin', (req, res) => {
-        res.render('admin.ejs');
-    });
+        if (req.session.user) {
+            console.log(req.session.user.admin);
+            if (req.session.user.admin === 1)
+                res.render('admin.ejs');
+            else
+                res.redirect('/');
+        } else
+            res.redirect('/');
 
+    });
     //const io = require('socket.io')(server);
     app.get('/munhak', (req, res) => {
         res.render('munhaksil.html');
