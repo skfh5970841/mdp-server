@@ -8,10 +8,35 @@
     <title>Document</title>
     <style>
         body {
-            background-color: gray;
+            margin: 0;
+        }
+        
+        #header {
+            background: #111111;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: default;
+            height: 3.25rem;
+            left: 0;
+            line-height: 3.25rem;
+            /*position: fixed;*/
+            top: 0;
+            width: 100%;
+            margin-bottom: 2vh;
+        }
+        
+        .logo {
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            height: inherit;
+            line-height: inherit;
+            padding: 0 1.25rem;
+            text-decoration: none;
         }
         
         #jb-container {
+            margin-top: 2vh;
             width: 940px;
             height: 60vh;
             margin: 0px auto;
@@ -56,6 +81,13 @@
 </head>
 
 <body>
+    <header id="header">
+        <a class="logo" href="/admin">admin page</a>
+        <a class="logo" href="/logout">Logout</a>
+        <a class="logo" href="/munhak">munhak</a>
+    </header>
+    <br>
+
     <div id='jb-container'>
         <div id="jb-content">
             <form action="/modifyboard" method=post>
